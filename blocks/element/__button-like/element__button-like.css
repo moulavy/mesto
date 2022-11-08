@@ -1,0 +1,19 @@
+.element__button-like{
+grid-area: like;
+   width: 22px;
+   height: 19px;
+   background-image:url("../../../images/heart.svg");
+   background-color: #fff;
+   padding:0;  
+   font:inherit;
+   color:inherit;
+   cursor: pointer;
+   border:none;
+   background-position: center;
+   background-repeat: no-repeat;
+   align-self: center;
+   margin-left: auto;
+   margin-right: 20px;
+   margin-bottom:4px;
+   
+}
