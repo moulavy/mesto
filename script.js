@@ -14,7 +14,6 @@ let jobInput = formElement.querySelector('.popup__description');
 function editClick() {
    popup.classList.add('popup_opened');
 }
-
 editButton.addEventListener('click', editClick);
 
 function closeClick() {
@@ -22,18 +21,13 @@ function closeClick() {
    nameInput.value = profileName.textContent;
    jobInput.value = profileDescription.textContent;
 }
-
 buttonClose.addEventListener('click', closeClick);
 
-
 /*обработка полей ввода*/
-
-
 nameInput.value = profileName.textContent;
 jobInput.value = profileDescription.textContent;
 function formSubmitHandler(evt) {
-   evt.preventDefault(); 
-   
+   evt.preventDefault();
    profileName.textContent = nameInput.value;
    profileDescription.textContent = jobInput.value;
    closeClick();
