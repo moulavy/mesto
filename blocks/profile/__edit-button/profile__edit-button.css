@@ -13,6 +13,11 @@
    align-self: flex-end;
    background-position: center;
    background-size: cover;
+   transition: .2s;
+}
+
+.profile__edit-button:hover{
+opacity:0.6;
 }
 
 @media screen and (max-width:768px) {

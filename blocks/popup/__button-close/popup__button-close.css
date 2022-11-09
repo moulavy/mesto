@@ -8,4 +8,21 @@
   background-color:#000;
 background-position:center;
 background-size: cover;
+cursor:pointer;
+border:none;
+padding:0;
+transition: 0.4s;
+}
+
+.popup__button-close:hover{
+  opacity:0.6 ;
+}
+
+@media screen and (max-width:768px) {
+   .popup__button-close{
+   top:-36px;
+   right: 0;
+   height: 20px;
+  width: 20px;
+   }
 }

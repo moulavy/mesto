@@ -15,5 +15,13 @@ grid-area: like;
    margin-left: auto;
    margin-right: 20px;
    margin-bottom:4px;
-   
+   transition: .2s;
+}
+
+.element__button-like:hover{
+   opacity: 0.5;
+}
+
+.element__button-like:active{   
+   background-image:url("../../../images/heart-active.svg");
 }
