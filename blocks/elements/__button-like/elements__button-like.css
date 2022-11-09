@@ -1,4 +1,4 @@
-.element__button-like {
+.elements__button-like {
   grid-area: like;
   width: 22px;
   height: 19px;
@@ -18,10 +18,10 @@
   transition: 0.2s;
 }
 
-.element__button-like:hover {
+.elements__button-like:hover {
   opacity: 0.5;
 }
 
-.element__button-like:active {
+.elements__button-like:active {
   background-image: url("../../../images/heart-active.svg");
 }

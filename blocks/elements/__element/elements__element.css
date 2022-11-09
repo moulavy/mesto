@@ -1,4 +1,4 @@
-.element {
+.elements__element {
   display: grid;
   grid-template-areas:
     "image-element image-element"
