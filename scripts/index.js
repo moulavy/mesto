@@ -69,11 +69,11 @@ function closeEditPopup() {
 }
 
 function openAddPopup() {
-   popupEdit.classList.add('popup_opened');
+   popupAdd.classList.add('popup_opened');
 }
 
 function closeAddPopup() {
-   popupEdit.classList.remove('popup_opened');   
+   popupAdd.classList.remove('popup_opened');   
 }
 
 function formSubmitHandler(evt) {
