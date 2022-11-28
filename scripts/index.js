@@ -55,6 +55,17 @@ initialCards.forEach(function (cardItem) {
    elementsList.append(itemElement);
 })
 
+function formAddSubmitHandler(evt) {
+   evt.preventDefault();
+  
+   let itemElement = templateElements.cloneNode(true);
+   itemElement.querySelector('.elements__image').src = linkImgInput.value;
+   itemElement.querySelector('.elements__title').textContent = nameImgInput.value;
+   elementsList.prepend(itemElement);
+   linkImgInput.value = '';
+   nameImgInput.value = '';
+   closeAddPopup();
+}
 
 function openEditPopup() {
    nameInput.value = profileName.textContent;
@@ -76,12 +87,14 @@ function closeAddPopup() {
    popupAdd.classList.remove('popup_opened');   
 }
 
-function formSubmitHandler(evt) {
+function formEditSubmitHandler(evt) {
    evt.preventDefault();
    profileName.textContent = nameInput.value;
    profileDescription.textContent = jobInput.value;
    closeEditPopup();
 }
+
+
 
 editButton.addEventListener('click', openEditPopup);
 buttonCloseEdit.addEventListener('click', closeEditPopup);
@@ -89,4 +102,6 @@ buttonCloseEdit.addEventListener('click', closeEditPopup);
 addButton.addEventListener('click', openAddPopup);
 buttonCloseAdd.addEventListener('click', closeAddPopup);
 
-formEditElement.addEventListener('submit', formSubmitHandler); 
+formEditElement.addEventListener('submit', formEditSubmitHandler); 
+
+formAddElement.addEventListener('submit', formAddSubmitHandler); 
