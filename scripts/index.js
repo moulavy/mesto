@@ -17,6 +17,8 @@ let formAddElement = document.querySelector('.popup-add__container');
 let nameImgInput = formAddElement.querySelector('.popup__input_value_name-img');
 let linkImgInput = formAddElement.querySelector('.popup__input_value_link-img');
 
+
+
 const initialCards = [
    {
       name: 'Архыз',
@@ -50,10 +52,23 @@ const templateElements = document.querySelector('#elements__element').content;
 
 initialCards.forEach(function (cardItem) {
    let itemElement = templateElements.cloneNode(true);
-   itemElement.querySelector('.elements__image').src = cardItem.link;
-   itemElement.querySelector('.elements__title').textContent = cardItem.name;
+   let itemElementImg = itemElement.querySelector('.elements__image');
+   let itemElementName = itemElement.querySelector('.elements__title');
+   let itemElementLike = itemElement.querySelector('.elements__button-like');
+
+   itemElementImg.src = cardItem.link;
+   itemElementName.textContent = cardItem.name;  
+   
+   itemElementLike.addEventListener('click', function(){
+      itemElementLike.classList.toggle('elements__button-like_active');
+   });
+ 
    elementsList.append(itemElement);
+      
 })
+ 
+
+
 
 function formAddSubmitHandler(evt) {
    evt.preventDefault();

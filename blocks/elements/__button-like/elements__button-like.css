@@ -22,6 +22,6 @@
   opacity: 0.5;
 }
 
-.elements__button-like:active {
+/* .elements__button-like:active {
   background-image: url("../../../images/heart-active.svg");
-}
+} */
