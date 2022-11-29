@@ -51,14 +51,15 @@ const elementsList = document.querySelector('.elements__list');
 const templateElements = document.querySelector('#elements__element').content;
 
 initialCards.forEach(function (cardItem) {
-   let itemElement = templateElements.cloneNode(true);
-   let itemElementImg = itemElement.querySelector('.elements__image');
-   let itemElementName = itemElement.querySelector('.elements__title');
-   let itemElementLike = itemElement.querySelector('.elements__button-like');
+   const itemElement = templateElements.cloneNode(true);
+   const itemElementImg = itemElement.querySelector('.elements__image');
+   const itemElementName = itemElement.querySelector('.elements__title');
+   const itemElementLike = itemElement.querySelector('.elements__button-like');
 
    itemElementImg.src = cardItem.link;
    itemElementName.textContent = cardItem.name;  
    
+   /*обработчик лайка для карточек из массива*/
    itemElementLike.addEventListener('click', function(){
       itemElementLike.classList.toggle('elements__button-like_active');
    });
@@ -71,11 +72,23 @@ initialCards.forEach(function (cardItem) {
 
 
 function formAddSubmitHandler(evt) {
-   evt.preventDefault();
-  
-   let itemElement = templateElements.cloneNode(true);
+   evt.preventDefault();  
+   const itemElement = templateElements.cloneNode(true);
    itemElement.querySelector('.elements__image').src = linkImgInput.value;
    itemElement.querySelector('.elements__title').textContent = nameImgInput.value;
+   const itemElementLike = itemElement.querySelector('.elements__button-like');
+
+   /*добавление в массив новой карточки*/
+   const newElement = {};
+   newElement.name = nameImgInput.value;
+   newElement.link = linkImgInput.value;
+   initialCards.push(newElement);
+   
+   /*обработчик лайка для карточек, добавленных со страницы*/
+   itemElementLike.addEventListener('click', function () {
+      itemElementLike.classList.toggle('elements__button-like_active');
+   });
+   
    elementsList.prepend(itemElement);
    linkImgInput.value = '';
    nameImgInput.value = '';
