@@ -74,35 +74,37 @@ initialCards.forEach(function (cardItem) {
    itemElementLike.addEventListener('click', function(){
       itemElementLike.classList.toggle('elements__button-like_active');
    });
+
+   /*обработчик удаления для карточек из массива*/
    itemElementDelete.addEventListener('click', function () {
       itemElementLi.remove();
    });
 
-   function openImgPopup() {
-      openPopup(popupImg);      
+   /*обработчик открыть картинку для карточек из массива*/
+   itemElementImg.addEventListener('click', function () {
+      openPopup(popupImg);
       titleImgPopup.textContent = itemElementName.textContent;
       photoPopup.src = itemElementImg.src;
-      
-   }
+   });
 
-   itemElementImg.addEventListener('click', openImgPopup);
-
-   elementsList.append(itemElement);
-      
+   elementsList.append(itemElement);      
 })
  
 
 function formAddSubmitHandler(evt) {
    evt.preventDefault();  
-   let itemElement = templateElements.cloneNode(true);
+   const itemElement = templateElements.cloneNode(true);
    const itemElementLi = itemElement.querySelector('.elements__element');
-   let itemElementName = itemElement.querySelector('elements__title');
-   let itemElementImg = itemElement.querySelector('.elements__image');
+   const itemElementName = itemElement.querySelector('elements__title');
+   const itemElementImg = itemElement.querySelector('.elements__image');
+   const itemElementLike = itemElement.querySelector('.elements__button-like');
+   const itemElementDelete = itemElement.querySelector('.elements__button-delete');
+   
    itemElement.querySelector('.elements__image').src = linkImgInput.value;
    itemElement.querySelector('.elements__title').textContent = nameImgInput.value;
    
-   const itemElementLike = itemElement.querySelector('.elements__button-like');
-   const itemElementDelete = itemElement.querySelector('.elements__button-delete');
+   let itemName = itemElement.querySelector('.elements__title').textContent;
+   let itemImg = itemElement.querySelector('.elements__image').src;
    
    /*добавление в массив новой карточки*/
    const newElement = {};
@@ -115,17 +117,17 @@ function formAddSubmitHandler(evt) {
       itemElementLike.classList.toggle('elements__button-like_active');
    });
    
+   /*обработчик удаления для карточек, добавленных со страницы*/
    itemElementDelete.addEventListener('click', function () {
       itemElementLi.remove();
    });
 
-   function openImgPopup() {
-       
+   /*обработчик открыть изображение для карточек, добавленных со страницы*/
+   itemElementImg.addEventListener('click', function () {
       openPopup(popupImg);
-      titleImgPopup.textContent = nameImgInput.value;
-      photoPopup.src = linkImgInput.value;
-   }
-  
+      titleImgPopup.textContent =itemName ;
+      photoPopup.src = itemImg;
+   });  
 
    elementsList.prepend(itemElement);
    linkImgInput.value = '';
