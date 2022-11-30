@@ -17,6 +17,14 @@ let formAddElement = document.querySelector('.popup-add__container');
 let nameImgInput = formAddElement.querySelector('.popup__input_value_name-img');
 let linkImgInput = formAddElement.querySelector('.popup__input_value_link-img');
 
+/*для popup-img*/
+let buttonCloseImg = document.querySelector('.popup-img__button-close');
+let popupImg = document.querySelector('.popup-img');
+let buttonImg = document.querySelector('elements__button-img');
+let photoPopup = document.querySelector('.popup-img__photo');
+let titleImgPopup = document.querySelector('.popup-img__subtitle');
+let popupImgContainer = document.querySelector('.popup-img__container');
+
 
 
 const initialCards = [
@@ -46,6 +54,7 @@ const initialCards = [
    }
 ];
 
+
 /*вывод карточек из массива на страницу*/
 const elementsList = document.querySelector('.elements__list');
 const templateElements = document.querySelector('#elements__element').content;
@@ -67,30 +76,40 @@ initialCards.forEach(function (cardItem) {
    });
    itemElementDelete.addEventListener('click', function () {
       itemElementLi.remove();
-
    });
+
+   function openImgPopup() {
+      openPopup(popupImg);      
+      titleImgPopup.textContent = itemElementName.textContent;
+      photoPopup.src = itemElementImg.src;
+      
+   }
+
+   itemElementImg.addEventListener('click', openImgPopup);
+
    elementsList.append(itemElement);
       
 })
  
 
-
-
 function formAddSubmitHandler(evt) {
    evt.preventDefault();  
-   const itemElement = templateElements.cloneNode(true);
+   let itemElement = templateElements.cloneNode(true);
    const itemElementLi = itemElement.querySelector('.elements__element');
+   let itemElementName = itemElement.querySelector('elements__title');
+   let itemElementImg = itemElement.querySelector('.elements__image');
    itemElement.querySelector('.elements__image').src = linkImgInput.value;
    itemElement.querySelector('.elements__title').textContent = nameImgInput.value;
+   
    const itemElementLike = itemElement.querySelector('.elements__button-like');
    const itemElementDelete = itemElement.querySelector('.elements__button-delete');
-
+   
    /*добавление в массив новой карточки*/
    const newElement = {};
    newElement.name = nameImgInput.value;
    newElement.link = linkImgInput.value;
    initialCards.push(newElement);
-   
+  
    /*обработчик лайка для карточек, добавленных со страницы*/
    itemElementLike.addEventListener('click', function () {
       itemElementLike.classList.toggle('elements__button-like_active');
@@ -98,34 +117,42 @@ function formAddSubmitHandler(evt) {
    
    itemElementDelete.addEventListener('click', function () {
       itemElementLi.remove();
-
    });
+
+   function openImgPopup() {
+       
+      openPopup(popupImg);
+      titleImgPopup.textContent = nameImgInput.value;
+      photoPopup.src = linkImgInput.value;
+   }
+  
 
    elementsList.prepend(itemElement);
    linkImgInput.value = '';
    nameImgInput.value = '';
-   closeAddPopup();
+   closePopup(popupAdd);
 }
 
 function openEditPopup() {
    nameInput.value = profileName.textContent;
    jobInput.value = profileDescription.textContent;
-   popupEdit.classList.add('popup_opened');
+   openPopup(popupEdit);
 }
 
 function closeEditPopup() {
-   popupEdit.classList.remove('popup_opened');
+   closePopup(popupEdit);
    nameInput.value = profileName.textContent;
    jobInput.value = profileDescription.textContent;
 }
 
-function openAddPopup() {
-   popupAdd.classList.add('popup_opened');
+function openPopup(item) {
+   item.classList.add('popup_opened');
 }
 
-function closeAddPopup() {
-   popupAdd.classList.remove('popup_opened');   
+function closePopup(item) {
+   item.classList.remove('popup_opened');
 }
+
 
 function formEditSubmitHandler(evt) {
    evt.preventDefault();
@@ -135,13 +162,13 @@ function formEditSubmitHandler(evt) {
 }
 
 
+addButton.addEventListener('click', ()=>openPopup(popupAdd));
+buttonCloseAdd.addEventListener('click', ()=>closePopup(popupAdd));
 
 editButton.addEventListener('click', openEditPopup);
 buttonCloseEdit.addEventListener('click', closeEditPopup);
 
-addButton.addEventListener('click', openAddPopup);
-buttonCloseAdd.addEventListener('click', closeAddPopup);
+buttonCloseImg.addEventListener('click', ()=>closePopup(popupImg));
 
 formEditElement.addEventListener('submit', formEditSubmitHandler); 
-
 formAddElement.addEventListener('submit', formAddSubmitHandler); 
