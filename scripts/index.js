@@ -52,9 +52,11 @@ const templateElements = document.querySelector('#elements__element').content;
 
 initialCards.forEach(function (cardItem) {
    const itemElement = templateElements.cloneNode(true);
+   const itemElementLi = itemElement.querySelector('.elements__element');
    const itemElementImg = itemElement.querySelector('.elements__image');
    const itemElementName = itemElement.querySelector('.elements__title');
    const itemElementLike = itemElement.querySelector('.elements__button-like');
+   const itemElementDelete = itemElement.querySelector('.elements__button-delete');
 
    itemElementImg.src = cardItem.link;
    itemElementName.textContent = cardItem.name;  
@@ -63,7 +65,10 @@ initialCards.forEach(function (cardItem) {
    itemElementLike.addEventListener('click', function(){
       itemElementLike.classList.toggle('elements__button-like_active');
    });
- 
+   itemElementDelete.addEventListener('click', function () {
+      itemElementLi.remove();
+
+   });
    elementsList.append(itemElement);
       
 })
@@ -74,9 +79,11 @@ initialCards.forEach(function (cardItem) {
 function formAddSubmitHandler(evt) {
    evt.preventDefault();  
    const itemElement = templateElements.cloneNode(true);
+   const itemElementLi = itemElement.querySelector('.elements__element');
    itemElement.querySelector('.elements__image').src = linkImgInput.value;
    itemElement.querySelector('.elements__title').textContent = nameImgInput.value;
    const itemElementLike = itemElement.querySelector('.elements__button-like');
+   const itemElementDelete = itemElement.querySelector('.elements__button-delete');
 
    /*добавление в массив новой карточки*/
    const newElement = {};
@@ -89,6 +96,11 @@ function formAddSubmitHandler(evt) {
       itemElementLike.classList.toggle('elements__button-like_active');
    });
    
+   itemElementDelete.addEventListener('click', function () {
+      itemElementLi.remove();
+
+   });
+
    elementsList.prepend(itemElement);
    linkImgInput.value = '';
    nameImgInput.value = '';
