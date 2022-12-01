@@ -121,7 +121,8 @@ initialCards.forEach(function (cardItem) {
  
 
 function formAddSubmitHandler(evt) {
-   evt.preventDefault();  
+   evt.preventDefault();
+   
    const itemElement = templateElements.cloneNode(true);
    const itemElementLi = itemElement.querySelector('.elements__element');
    const itemElementName = itemElement.querySelector('elements__title');
