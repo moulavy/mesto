@@ -25,7 +25,9 @@ const photoPopup = document.querySelector('.popup-img__photo');
 const titleImgPopup = document.querySelector('.popup-img__subtitle');
 const popupImgContainer = document.querySelector('.popup-img__container');
 
-
+/*вывод карточек из массива на страницу*/
+const elementsList = document.querySelector('.elements__list');
+const templateElements = document.querySelector('#elements__element').content;
 
 const initialCards = [
    {
@@ -83,83 +85,51 @@ function formEditSubmitHandler(evt) {
    closeEditPopup();
 }
 
-
-/*вывод карточек из массива на страницу*/
-const elementsList = document.querySelector('.elements__list');
-const templateElements = document.querySelector('#elements__element').content;
-
-initialCards.forEach(function (cardItem) {
-   const itemElement = templateElements.cloneNode(true);
-   const itemElementLi = itemElement.querySelector('.elements__element');
-   const itemElementImg = itemElement.querySelector('.elements__image');
-   const itemElementName = itemElement.querySelector('.elements__title');
-   const itemElementLike = itemElement.querySelector('.elements__button-like');
-   const itemElementDelete = itemElement.querySelector('.elements__button-delete');
-
-   itemElementImg.src = cardItem.link;
-   itemElementName.textContent = cardItem.name;  
-   
-   /*обработчик лайка для карточек из массива*/
-   itemElementLike.addEventListener('click', function(){
-      itemElementLike.classList.toggle('elements__button-like_active');
-   });
-
-   /*обработчик удаления для карточек из массива*/
-   itemElementDelete.addEventListener('click', function () {
-      itemElementLi.remove();
-   });
-
-   /*обработчик открыть картинку для карточек из массива*/
-   itemElementImg.addEventListener('click', function () {
-      openPopup(popupImg);
-      titleImgPopup.textContent = itemElementName.textContent;
-      photoPopup.src = itemElementImg.src;
-   });
-
-   elementsList.append(itemElement);      
-})
- 
-
-function formAddSubmitHandler(evt) {
-   evt.preventDefault();
-   
+function createCard(itemArgImg, itemArgName) {
+  
    const itemElement = templateElements.cloneNode(true);
    const itemElementLi = itemElement.querySelector('.elements__element');
    const itemElementName = itemElement.querySelector('elements__title');
    const itemElementImg = itemElement.querySelector('.elements__image');
    const itemElementLike = itemElement.querySelector('.elements__button-like');
    const itemElementDelete = itemElement.querySelector('.elements__button-delete');
-   
-   itemElement.querySelector('.elements__image').src = linkImgInput.value;
-   itemElement.querySelector('.elements__title').textContent = nameImgInput.value;
-   
+
+   itemElement.querySelector('.elements__image').src = itemArgImg;
+   itemElement.querySelector('.elements__title').textContent = itemArgName;
+
    const itemName = itemElement.querySelector('.elements__title').textContent;
    const itemImg = itemElement.querySelector('.elements__image').src;
-   
-   /*добавление в массив новой карточки*/
-   const newElement = {};
-   newElement.name = nameImgInput.value;
-   newElement.link = linkImgInput.value;
-   initialCards.push(newElement);
-  
-   /*обработчик лайка для карточек, добавленных со страницы*/
+
+   /*обработчик лайка для карточек*/
    itemElementLike.addEventListener('click', function () {
       itemElementLike.classList.toggle('elements__button-like_active');
    });
-   
-   /*обработчик удаления для карточек, добавленных со страницы*/
+
+   /*обработчик удаления для карточек*/
    itemElementDelete.addEventListener('click', function () {
       itemElementLi.remove();
    });
 
-   /*обработчик открыть изображение для карточек, добавленных со страницы*/
+   /*обработчик открыть изображение для карточек*/
    itemElementImg.addEventListener('click', function () {
       openPopup(popupImg);
-      titleImgPopup.textContent =itemName ;
+      titleImgPopup.textContent = itemName;
       photoPopup.src = itemImg;
    });  
+   return itemElement;
+}
 
-   elementsList.prepend(itemElement);
+initialCards.forEach(function (cardItem) {   
+   let element=createCard(cardItem.link, cardItem.name);
+   elementsList.append(element);
+})
+
+
+function formAddSubmitHandler(evt) {
+   evt.preventDefault();
+   let element = createCard(linkImgInput.value, nameImgInput.value);
+
+   elementsList.prepend(element);
    linkImgInput.value = '';
    nameImgInput.value = '';
    closePopup(popupAdd);
