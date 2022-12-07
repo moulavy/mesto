@@ -29,6 +29,8 @@ const popupImgContainer = document.querySelector('.popup-img__container');
 const elementsList = document.querySelector('.elements__list');
 const templateElements = document.querySelector('#elements__element').content;
 
+
+
 function openEditPopup() {
    nameInput.value = profileName.textContent;
    jobInput.value = profileDescription.textContent;
@@ -101,6 +103,31 @@ function formAddSubmitHandler(evt) {
 initialCards.forEach((cardItem) => {
    renderCard(cardItem.link, cardItem.name, elementsList)
 }); 
+
+const formError = document.querySelector('.name-input-error');
+
+function showInputError(element,errorMessage) {
+   element.classList.add('popup__input_type_error');
+   formError.textContent = errorMessage;
+   formError.classList.add('popup__input-error_active');
+}
+
+function hideInputError(element) {
+   element.classList.add('popup__input_type_error');
+   formError.classList.remove('popup__input-error_active');
+   formError.textContent = '';
+}
+
+function isValid() {
+   if (!nameInput.validity.valid) {
+      showInputError(nameInput,nameInput.validationMessage);
+   }
+   else {
+      hideInputError(nameInput);
+   }
+}
+
+nameInput.addEventListener('input', isValid);
 
 addButton.addEventListener('click', ()=>openPopup(popupAdd));
 buttonCloseAdd.addEventListener('click', ()=>closePopup(popupAdd));
