@@ -35,10 +35,6 @@ function openEditPopup() {
    openPopup(popupEdit);
 }
 
-function closeEditPopup() {
-   closePopup(popupEdit);  
-}
-
 function openPopup(item) {
    item.classList.add('popup_opened');
 }
@@ -51,8 +47,8 @@ function closePopup(item) {
 function formEditSubmitHandler(evt) {
    evt.preventDefault();
    profileName.textContent = nameInput.value;
-   profileDescription.textContent = jobInput.value;
-   closeEditPopup();
+   profileDescription.textContent = jobInput.value;   
+   closePopup(popupEdit);
 }
 
 function createCard(itemArgImg, itemArgName)
@@ -110,7 +106,7 @@ addButton.addEventListener('click', ()=>openPopup(popupAdd));
 buttonCloseAdd.addEventListener('click', ()=>closePopup(popupAdd));
 
 editButton.addEventListener('click', openEditPopup);
-buttonCloseEdit.addEventListener('click', closeEditPopup);
+buttonCloseEdit.addEventListener('click', ()=>closePopup(popupEdit));
 
 buttonCloseImg.addEventListener('click', ()=>closePopup(popupImg));
 
