@@ -53,7 +53,7 @@ function formEditSubmitHandler(evt) {
    closePopup(popupEdit);
 }
 
-function createCard(itemArgImg, itemArgName)
+function createCard(card)
 /*я передавала изначально как объект, но свойства у этого объекта разные 
 там где мы вызываем функцию, из input передается value, а из массива name и link.*/
 {  
@@ -63,9 +63,9 @@ function createCard(itemArgImg, itemArgName)
    const itemElementLike = itemElement.querySelector('.elements__button-like');
    const itemElementDelete = itemElement.querySelector('.elements__button-delete');
    
-   itemElement.querySelector('.elements__image').src = itemArgImg;
-   itemElement.querySelector('.elements__image').alt = itemArgName;
-   itemElement.querySelector('.elements__title').textContent = itemArgName;
+   itemElement.querySelector('.elements__image').src = card.link;
+   itemElement.querySelector('.elements__image').alt = card.name;
+   itemElement.querySelector('.elements__title').textContent = card.name;
 
    const itemName = itemElement.querySelector('.elements__title').textContent;
    const itemImg = itemElement.querySelector('.elements__image').src;
@@ -89,19 +89,22 @@ function createCard(itemArgImg, itemArgName)
 
    return itemElement;
 }
-function renderCard(srcItem, nameItem, listI) {
-   listI.prepend(createCard(srcItem, nameItem))
+function renderCard(cardItem, listI) {
+   listI.prepend(createCard(cardItem));
 }
 
 function formAddSubmitHandler(evt) {
    evt.preventDefault();
-   renderCard(linkImgInput.value, nameImgInput.value, elementsList)
+   const data = {};
+   data.name = nameImgInput.value;
+   data.link = linkImgInput.value;
+   renderCard(data, elementsList);
    linkImgInput.value = '';
    nameImgInput.value = '';
    closePopup(popupAdd);
 }
 initialCards.forEach((cardItem) => {
-   renderCard(cardItem.link, cardItem.name, elementsList)
+   renderCard(cardItem, elementsList)
 }); 
 
 const formError = document.querySelector('.name-input-error');
