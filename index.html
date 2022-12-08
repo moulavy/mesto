@@ -35,26 +35,26 @@
       </section>
     </main>
     <section class="popup-edit popup">
-      <form novalidate class="form popup__container popup-edit__container">
+      <form novalidate class="popup__form popup__container popup-edit__container">
         <button type="button" class="popup__button-close popup-edit__button-close"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <input id="name-input" type="text" minlength="2" maxlength="40" required class="popup__input popup__input_value_name" />
-        <span class="name-input-error popup__input-error"></span>
+        <span class="name-input-error popup__error_visible"></span>
         <input id="description-input" minlength="2" maxlength="200" required type="text" class="popup__input popup__input_value_description" />
-        <span class="description-input-error popup__input-error"></span>
-        <button type="submit" class="form__submit  popup__button-save">Сохранить</button>
+        <span class="description-input-error popup__error_visible"></span>
+        <button type="submit" class="popup__button  popup__button-save">Сохранить</button>
       </form>
     </section>
     <section class="popup-add popup">
-      <form novalidate class="form popup__container popup-add__container">
+      <form novalidate class="popup__form popup__container popup-add__container">
         <button type="reset" class="popup__button-close popup-add__button-close"></button>
         <h2 class="popup__title">Новое место</h2>        
           <input id="name-img-input" type="text" minlength="2" maxlength="30" required placeholder="Название" class="popup__input popup__input_value_name-img" />
-          <span class="popup__input-error name-img-input-error"></span>  
+          <span class="popup__error_visible name-img-input-error"></span>  
           <input id="link-img-input" type="url" required placeholder="Ссылка на картинку" class="popup__input popup__input_value_link-img" />
-          <span class="popup__input-error link-img-input-error"></span>
+          <span class="popup__error_visible link-img-input-error"></span>
         
-        <button  type="submit" class="form__submit popup__button-add">Создать</button>
+        <button  type="submit" class="popup__button popup__button-add">Создать</button>
       </form>
     </section>
     <section class="popup-img popup">

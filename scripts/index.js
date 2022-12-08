@@ -5,6 +5,7 @@ const editButton = document.querySelector('.profile__edit-button');
 const formEditElement = document.querySelector('.popup-edit__container');
 const nameInput = formEditElement.querySelector('.popup__input_value_name');
 const jobInput = formEditElement.querySelector('.popup__input_value_description');
+const editButtonPopup = formEditElement.querySelector('.popup__button-save');
 
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
@@ -34,6 +35,8 @@ function openEditPopup() {
    
    nameInput.value = profileName.textContent;
    jobInput.value = profileDescription.textContent;
+   editButtonPopup.classList.add('popup__button_disabled');
+   editButtonPopup.setAttribute('disabled', 'disabled');
    openPopup(popupEdit);
 }
 
@@ -54,6 +57,7 @@ function formEditSubmitHandler(evt) {
    profileName.textContent = nameInput.value;
    profileDescription.textContent = jobInput.value;   
    closePopup(popupEdit);
+   
 }
 
 function createCard(card)
@@ -102,8 +106,8 @@ function formAddSubmitHandler(evt) {
    data.link = linkImgInput.value;
    renderCard(data, elementsList);   
    closePopup(popupAdd);
-   addButtonPopup.classList.add('form__submit_inactive');
-   addButtonPopup.setAttribute('disabled', 'desabled');
+   addButtonPopup.classList.add('popup__button_disabled');
+   addButtonPopup.setAttribute('disabled', 'disabled');
    formAddElement.reset();
  
 }
