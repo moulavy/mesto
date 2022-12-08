@@ -16,7 +16,7 @@ const addButton = document.querySelector('.profile__add-button');
 const formAddElement = document.querySelector('.popup-add__container');
 const nameImgInput = formAddElement.querySelector('.popup__input_value_name-img');
 const linkImgInput = formAddElement.querySelector('.popup__input_value_link-img');
-
+const addButtonPopup = formAddElement.querySelector('.popup__button-add');
 /*для popup-img*/
 const buttonCloseImg = document.querySelector('.popup-img__button-close');
 const popupImg = document.querySelector('.popup-img');
@@ -38,7 +38,7 @@ function openEditPopup() {
 }
 
 function openPopup(item) {  
-
+   
    item.classList.add('popup_opened');
    
 }
@@ -100,11 +100,12 @@ function formAddSubmitHandler(evt) {
    const data = {};
    data.name = nameImgInput.value;
    data.link = linkImgInput.value;
-   renderCard(data, elementsList);
-   // evt.reset();
-   linkImgInput.value = '';
-   nameImgInput.value = '';
-   closePopup(popupAdd);   
+   renderCard(data, elementsList);   
+   closePopup(popupAdd);
+   addButtonPopup.classList.add('form__submit_inactive');
+   addButtonPopup.setAttribute('disabled', 'desabled');
+   formAddElement.reset();
+ 
 }
 
 /*создание карточек из массива*/

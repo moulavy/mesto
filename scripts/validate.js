@@ -51,12 +51,12 @@ function setEventListener(formElement) {
 
 function enableValidation() {
    const formArray = Array.from(document.querySelectorAll('.form'));
-
+   
    formArray.forEach((formElement) => {
       formElement.addEventListener('submit', (evt) => {
          evt.preventDefault();
       });
-      
+     
       setEventListener(formElement);
    })
 }
@@ -71,9 +71,11 @@ function hasInvalidInput(inputArray) {
 function toggleButton(inputArray, buttonElement) {
    if (hasInvalidInput(inputArray)) {
       buttonElement.classList.add('form__submit_inactive');
+      buttonElement.setAttribute('disabled', 'disabled');
    }
    else {
       buttonElement.classList.remove('form__submit_inactive');
+      buttonElement.removeAttribute('disabled');
    }
 }
 
