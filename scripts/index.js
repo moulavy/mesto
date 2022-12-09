@@ -62,7 +62,12 @@ function closePopupOverlay(e) {
 }
 
 function openPopup(item) {  
-   
+   const inputArray = Array.from(item.querySelectorAll(".popup__input"));
+   inputArray.forEach((inputElement) => {
+      const errorElement = item.querySelector(`.${inputElement.id}-error`);
+      inputElement.classList.remove("popup__input_type_error");
+      errorElement.textContent = '';
+   })
    item.classList.add('popup_opened');
    document.addEventListener('keydown', closeByEsc);
    document.addEventListener('click', closePopupOverlay);

@@ -44,31 +44,7 @@ function setEventListener(formElement, obj) {
       inputElement.addEventListener('input', () => {
          isValid(formElement, inputElement, obj);
          toggleButton(inputArray, buttonElement, obj);         
-      });
-      buttonCloseAdd.addEventListener('click', () => {
-         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-         inputElement.classList.remove(obj.inputErrorClass);
-         errorElement.textContent = '';
-      });
-      buttonCloseEdit.addEventListener('click', () => {
-         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-         inputElement.classList.remove(obj.inputErrorClass);
-         errorElement.textContent = '';
-      });
-      document.addEventListener('keydown', (e) => {
-         if (e.key === 'Escape') {
-            const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-            inputElement.classList.remove(obj.inputErrorClass);
-            errorElement.textContent = '';
-         }
-      });
-      document.addEventListener('click', (e) => {
-         if (e.target.classList.contains('popup_opened')) {
-            const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-            inputElement.classList.remove(obj.inputErrorClass);
-            errorElement.textContent = '';
-         }
-      });
+      }); 
    });
 }
 
