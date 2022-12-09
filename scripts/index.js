@@ -44,7 +44,7 @@ function closePopup(item) {
    item.classList.remove('popup_opened');
    form = item.querySelector('.popup__container');
    form.reset();
- 
+   
    document.removeEventListener('keydown', closeByEsc);
    document.removeEventListener('click', closePopupOverlay);
 }

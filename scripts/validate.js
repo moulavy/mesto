@@ -1,15 +1,12 @@
-function showInputError(formElement, inputElement, errorMessage,obj) {
-   
+function showInputError(formElement, inputElement, errorMessage,obj) {   
    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
    inputElement.classList.add(obj.inputErrorClass);
-   errorElement.textContent = errorMessage;
-   // errorElement.classList.add(obj.errorClass);
+   errorElement.textContent = errorMessage;   
 }
 
 function hideInputError(formElement, inputElement,obj) {
    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-   inputElement.classList.remove(obj.inputErrorClass);
-   // errorElement.classList.remove(obj.errorClass);
+   inputElement.classList.remove(obj.inputErrorClass);   
    errorElement.textContent = '';
 }
 
@@ -22,47 +19,10 @@ function isValid(formElement, inputElement,obj) {
    }
 }
 
-function setEventListener(formElement,obj) {
-   const inputArray = Array.from(formElement.querySelectorAll(obj.inputSelector));
-   const buttonElement = formElement.querySelector(obj.submitButtonSelector);
-   toggleButton(inputArray, buttonElement,obj);
-   inputArray.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => {
-         toggleButton(inputArray, buttonElement,obj);
-         isValid(formElement, inputElement,obj);
-      });
-      function removeError() {
-         buttonCloseAdd.addEventListener('click', () => {
-            const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-            inputElement.classList.remove(obj.inputErrorClass);
-            errorElement.textContent = '';
-         });
-         buttonCloseEdit.addEventListener('click', () => {
-            const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-            inputElement.classList.remove(obj.inputErrorClass);
-            errorElement.textContent = '';
-         });
-      }
-   });
-}
-
-function enableValidation(obj) {
-   const formArray = Array.from(document.querySelectorAll(obj.formSelector));
-   
-   formArray.forEach((formElement) => {
-      formElement.addEventListener('submit', (evt) => {
-         evt.preventDefault();
-      });
-     
-      setEventListener(formElement,obj);
-   })
-}
-
 function hasInvalidInput(inputArray) {
    return inputArray.some((inputElement) => {
       return !inputElement.validity.valid;
    })
-
 }
 
 function toggleButton(inputArray, buttonElement,obj) {
@@ -74,6 +34,52 @@ function toggleButton(inputArray, buttonElement,obj) {
       buttonElement.classList.remove(obj.inactiveButtonClass);
       buttonElement.removeAttribute('disabled');
    }
+}
+
+function setEventListener(formElement, obj) {
+   const inputArray = Array.from(formElement.querySelectorAll(obj.inputSelector));
+   const buttonElement = formElement.querySelector(obj.submitButtonSelector);
+   toggleButton(inputArray, buttonElement, obj);
+   inputArray.forEach((inputElement) => {
+      inputElement.addEventListener('input', () => {
+         isValid(formElement, inputElement, obj);
+         toggleButton(inputArray, buttonElement, obj);         
+      });
+      buttonCloseAdd.addEventListener('click', () => {
+         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+         inputElement.classList.remove(obj.inputErrorClass);
+         errorElement.textContent = '';
+      });
+      buttonCloseEdit.addEventListener('click', () => {
+         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+         inputElement.classList.remove(obj.inputErrorClass);
+         errorElement.textContent = '';
+      });
+      document.addEventListener('keydown', (e) => {
+         if (e.key === 'Escape') {
+            const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+            inputElement.classList.remove(obj.inputErrorClass);
+            errorElement.textContent = '';
+         }
+      });
+      document.addEventListener('click', (e) => {
+         if (e.target.classList.contains('popup_opened')) {
+            const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+            inputElement.classList.remove(obj.inputErrorClass);
+            errorElement.textContent = '';
+         }
+      });
+   });
+}
+
+function enableValidation(obj) {
+   const formArray = Array.from(document.querySelectorAll(obj.formSelector));
+   formArray.forEach((formElement) => {
+      formElement.addEventListener('submit', (evt) => {
+         evt.preventDefault();
+      });
+      setEventListener(formElement, obj);
+   })
 }
 
 enableValidation({
