@@ -31,6 +31,7 @@ const elementsList = document.querySelector('.elements__list');
 const templateElements = document.querySelector('#elements__element').content;
 
 
+
 function openEditPopup() {
    
    nameInput.value = profileName.textContent;
@@ -39,18 +40,33 @@ function openEditPopup() {
    editButtonPopup.setAttribute('disabled', 'disabled');
    openPopup(popupEdit);
 }
+function closePopup(item) {
+   item.classList.remove('popup_opened');
+   form = item.querySelector('.popup__container');
+   form.reset();
+ 
+   document.removeEventListener('keydown', closeByEsc);
+   document.removeEventListener('click', closePopupOverlay);
+}
+
+function closeByEsc(e) {
+   if (e.key === 'Escape') {
+      closePopup(document.querySelector('.popup_opened'));
+   }
+}
+
+function closePopupOverlay(e) {
+   if (e.target.classList.contains('popup_opened')) {      
+      closePopup(e.target);
+   }
+}
 
 function openPopup(item) {  
    
    item.classList.add('popup_opened');
-   
+   document.addEventListener('keydown', closeByEsc);
+   document.addEventListener('click', closePopupOverlay);
 }
-
-function closePopup(item,form) {
-   item.classList.remove('popup_opened');
-  
-}
-
 
 function formEditSubmitHandler(evt) {
    evt.preventDefault();
@@ -128,4 +144,4 @@ buttonCloseImg.addEventListener('click', ()=>closePopup(popupImg));
 
 formEditElement.addEventListener('submit', formEditSubmitHandler); 
 formAddElement.addEventListener('submit', formAddSubmitHandler);
- 
+

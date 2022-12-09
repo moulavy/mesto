@@ -30,20 +30,19 @@ function setEventListener(formElement,obj) {
       inputElement.addEventListener('input', () => {
          toggleButton(inputArray, buttonElement,obj);
          isValid(formElement, inputElement,obj);
-
       });
-      buttonCloseAdd.addEventListener('click', () => {
-         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-         inputElement.classList.remove(obj.inputErrorClass);
-         // errorElement.classList.remove(obj.errorClass);
-         errorElement.textContent = '';
-      });
-      buttonCloseEdit.addEventListener('click', () => {
-         const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-         inputElement.classList.remove(obj.inputErrorClass);
-         // errorElement.classList.remove(obj.errorClass);
-         errorElement.textContent = '';
-      })
+      function removeError() {
+         buttonCloseAdd.addEventListener('click', () => {
+            const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+            inputElement.classList.remove(obj.inputErrorClass);
+            errorElement.textContent = '';
+         });
+         buttonCloseEdit.addEventListener('click', () => {
+            const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+            inputElement.classList.remove(obj.inputErrorClass);
+            errorElement.textContent = '';
+         });
+      }
    });
 }
 
