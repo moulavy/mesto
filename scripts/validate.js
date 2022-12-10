@@ -1,21 +1,21 @@
-function showInputError(formElement, inputElement, errorMessage,obj) {   
+function showInputError(formElement, inputElement, errorMessage, obj) {
    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
    inputElement.classList.add(obj.inputErrorClass);
-   errorElement.textContent = errorMessage;   
+   errorElement.textContent = errorMessage;
 }
 
-function hideInputError(formElement, inputElement,obj) {
+function hideInputError(formElement, inputElement, obj) {
    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-   inputElement.classList.remove(obj.inputErrorClass);   
+   inputElement.classList.remove(obj.inputErrorClass);
    errorElement.textContent = '';
 }
 
-function isValid(formElement, inputElement,obj) {
+function isValid(formElement, inputElement, obj) {
    if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage,obj);
+      showInputError(formElement, inputElement, inputElement.validationMessage, obj);
    }
    else {
-      hideInputError(formElement, inputElement,obj);
+      hideInputError(formElement, inputElement, obj);
    }
 }
 
@@ -25,7 +25,7 @@ function hasInvalidInput(inputArray) {
    })
 }
 
-function toggleButton(inputArray, buttonElement,obj) {
+function toggleButton(inputArray, buttonElement, obj) {
    if (hasInvalidInput(inputArray)) {
       buttonElement.classList.add(obj.inactiveButtonClass);
       buttonElement.setAttribute('disabled', 'disabled');
@@ -43,8 +43,8 @@ function setEventListener(formElement, obj) {
    inputArray.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
          isValid(formElement, inputElement, obj);
-         toggleButton(inputArray, buttonElement, obj);         
-      }); 
+         toggleButton(inputArray, buttonElement, obj);
+      });
    });
 }
 
