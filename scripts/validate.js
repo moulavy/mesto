@@ -1,21 +1,21 @@
-function showInputError(formElement, inputElement, errorMessage, obj) {
+function showInputError(formElement, inputElement, errorMessage, config) {
    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-   inputElement.classList.add(obj.inputErrorClass);
+   inputElement.classList.add(config.inputErrorClass);
    errorElement.textContent = errorMessage;
 }
 
-function hideInputError(formElement, inputElement, obj) {
+function hideInputError(formElement, inputElement, config) {
    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-   inputElement.classList.remove(obj.inputErrorClass);
+   inputElement.classList.remove(config.inputErrorClass);
    errorElement.textContent = '';
 }
 
-function isValid(formElement, inputElement, obj) {
+function isValid(formElement, inputElement, config) {
    if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage, obj);
+      showInputError(formElement, inputElement, inputElement.validationMessage, config);
    }
    else {
-      hideInputError(formElement, inputElement, obj);
+      hideInputError(formElement, inputElement, config);
    }
 }
 
@@ -25,36 +25,36 @@ function hasInvalidInput(inputArray) {
    })
 }
 
-function toggleButton(inputArray, buttonElement, obj) {
+function toggleButton(inputArray, buttonElement, config) {
    if (hasInvalidInput(inputArray)) {
-      buttonElement.classList.add(obj.inactiveButtonClass);
-      buttonElement.setAttribute('disabled', 'disabled');
+      buttonElement.classList.add(config.inactiveButtonClass);
+      buttonElement.disabled = 'disabled';
    }
    else {
-      buttonElement.classList.remove(obj.inactiveButtonClass);
+      buttonElement.classList.remove(config.inactiveButtonClass);
       buttonElement.removeAttribute('disabled');
    }
 }
 
-function setEventListener(formElement, obj) {
-   const inputArray = Array.from(formElement.querySelectorAll(obj.inputSelector));
-   const buttonElement = formElement.querySelector(obj.submitButtonSelector);
-   toggleButton(inputArray, buttonElement, obj);
+function setEventListener(formElement, config) {
+   const inputArray = Array.from(formElement.querySelectorAll(config.inputSelector));
+   const buttonElement = formElement.querySelector(config.submitButtonSelector);
+   toggleButton(inputArray, buttonElement, config);
    inputArray.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-         isValid(formElement, inputElement, obj);
-         toggleButton(inputArray, buttonElement, obj);
+         isValid(formElement, inputElement, config);
+         toggleButton(inputArray, buttonElement, config);
       });
    });
 }
 
-function enableValidation(obj) {
-   const formArray = Array.from(document.querySelectorAll(obj.formSelector));
+function enableValidation(config) {
+   const formArray = Array.from(document.querySelectorAll(config.formSelector));
    formArray.forEach((formElement) => {
       formElement.addEventListener('submit', (evt) => {
          evt.preventDefault();
       });
-      setEventListener(formElement, obj);
+      setEventListener(formElement, config);
    })
 }
 
