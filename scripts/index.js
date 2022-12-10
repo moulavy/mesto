@@ -33,7 +33,7 @@ const templateElements = document.querySelector('#elements__element').content;
 
 
 function openEditPopup() {
-   
+
    nameInput.value = profileName.textContent;
    jobInput.value = profileDescription.textContent;
    editButtonPopup.classList.add('popup__button_disabled');
@@ -44,7 +44,7 @@ function closePopup(item) {
    item.classList.remove('popup_opened');
    form = item.querySelector('.popup__container');
    form.reset();
-   
+
    document.removeEventListener('keydown', closeByEsc);
    document.removeEventListener('click', closePopupOverlay);
 }
@@ -56,7 +56,7 @@ function closeByEsc(e) {
 }
 
 function closePopupOverlay(e) {
-   if (e.target.classList.contains('popup_opened')) {      
+   if (e.target.classList.contains('popup_opened')) {
       closePopup(e.target);
    }
 }
@@ -70,8 +70,8 @@ function restartError(item) {
    })
 }
 
-function openPopup(item) {  
-   restartError(item);   
+function openPopup(item) {
+   restartError(item);
    item.classList.add('popup_opened');
    document.addEventListener('keydown', closeByEsc);
    document.addEventListener('click', closePopupOverlay);
@@ -80,40 +80,38 @@ function openPopup(item) {
 function formEditSubmitHandler(evt) {
    evt.preventDefault();
    profileName.textContent = nameInput.value;
-   profileDescription.textContent = jobInput.value;   
+   profileDescription.textContent = jobInput.value;
    closePopup(popupEdit);
-   
+
 }
 
-function createCard(card)
-{  
+function createCard(card) {
    const itemElement = templateElements.cloneNode(true);
    const itemElementLi = itemElement.querySelector('.elements__element');
    const itemElementImg = itemElement.querySelector('.elements__image');
+   const itemElementTitle = itemElement.querySelector('.elements__title')
    const itemElementLike = itemElement.querySelector('.elements__button-like');
    const itemElementDelete = itemElement.querySelector('.elements__button-delete');
-   
-   itemElement.querySelector('.elements__image').src = card.link;
-   itemElement.querySelector('.elements__image').alt = card.name;
-   itemElement.querySelector('.elements__title').textContent = card.name;
 
-   const itemName = itemElement.querySelector('.elements__title').textContent;
-   const itemImg = itemElement.querySelector('.elements__image').src;
+   itemElementImg.src = card.link;
+   itemElementImg.alt = card.name;
+   itemElementTitle.textContent = card.name;
 
    function openImg() {
       openPopup(popupImg);
-      titleImgPopup.textContent = itemName;
-      photoPopup.src = itemImg;
-      photoPopup.alt = itemName;
+      titleImgPopup.textContent = card.name;
+      photoPopup.src = card.link;
+      photoPopup.alt = card.name;
    }
+
    function handlerDelete() {
       itemElementLi.remove();
    }
    function handlerLike() {
       itemElementLike.classList.toggle('elements__button-like_active');
    }
-  
-   itemElementLike.addEventListener('click', handlerLike);   
+
+   itemElementLike.addEventListener('click', handlerLike);
    itemElementDelete.addEventListener('click', handlerDelete);
    itemElementImg.addEventListener('click', openImg);
 
@@ -129,28 +127,28 @@ function formAddSubmitHandler(evt) {
    const data = {};
    data.name = nameImgInput.value;
    data.link = linkImgInput.value;
-   renderCard(data, elementsList);   
+   renderCard(data, elementsList);
    closePopup(popupAdd);
    addButtonPopup.classList.add('popup__button_disabled');
    addButtonPopup.setAttribute('disabled', 'disabled');
    formAddElement.reset();
- 
+
 }
 
 /*создание карточек из массива*/
 initialCards.forEach((cardItem) => {
    renderCard(cardItem, elementsList)
-}); 
+});
 
 
-addButton.addEventListener('click', ()=>openPopup(popupAdd));
-buttonCloseAdd.addEventListener('click', ()=>closePopup(popupAdd));
+addButton.addEventListener('click', () => openPopup(popupAdd));
+buttonCloseAdd.addEventListener('click', () => closePopup(popupAdd));
 
 editButton.addEventListener('click', openEditPopup);
-buttonCloseEdit.addEventListener('click', ()=>closePopup(popupEdit));
+buttonCloseEdit.addEventListener('click', () => closePopup(popupEdit));
 
-buttonCloseImg.addEventListener('click', ()=>closePopup(popupImg));
+buttonCloseImg.addEventListener('click', () => closePopup(popupImg));
 
-formEditElement.addEventListener('submit', formEditSubmitHandler); 
+formEditElement.addEventListener('submit', formEditSubmitHandler);
 formAddElement.addEventListener('submit', formAddSubmitHandler);
 
