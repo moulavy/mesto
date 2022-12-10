@@ -59,7 +59,7 @@ function closePopup(popup) {
    popup.classList.remove('popup_opened');  
    if (popup === popupEdit || popup === popupAdd) {
       //добавила проверку, чтобы не усложнять функции закрыть по оверлею или по Escape. Ошибки не выходит при закрытии popupImg
-      form = popup.querySelector('.popup__container');
+      const form = popup.querySelector('.popup__container');
       form.reset(); 
    }
    document.removeEventListener('keydown', closeByEsc);   
@@ -88,10 +88,8 @@ function openPopup(popup) {
 function handleProfileFormSubmit(evt) {
    evt.preventDefault();
    profileName.textContent = nameInput.value;
-   profileDescription.textContent = jobInput.value;
-   
+   profileDescription.textContent = jobInput.value;   
    closePopup(popupEdit);
-
 }
 
 function createCard(card) {
