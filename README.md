@@ -28,5 +28,5 @@ ____
 * [Ссылка на макет №3(Спринт 6) в Figma](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?t=0eclGRcvYt4Q8ttF-0)
 
 **Сайт на GitHub Pages**
-* [Ссылка на сайт](https://moulavy.github.io/me)sto/)
+* [Ссылка на сайт](https://moulavy.github.io/mesto/)
 
