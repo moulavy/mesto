@@ -28,11 +28,11 @@ function hasInvalidInput(inputArray) {
 function toggleButton(inputArray, buttonElement, config) {
    if (hasInvalidInput(inputArray)) {
       buttonElement.classList.add(config.inactiveButtonClass);
-      buttonElement.disabled = 'disabled';
+      buttonElement.disabled = true;
    }
    else {
       buttonElement.classList.remove(config.inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
+      buttonElement.disabled = false;
    }
 }
 
