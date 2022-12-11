@@ -29,6 +29,8 @@ const titleImgPopup = document.querySelector('.popup-img__subtitle');
 const cardsContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#elements__element').content;
 
+const cardForm = popupAdd.querySelector('.popup__container');
+
 function disableSubmitButton(button) {
    button.classList.add('popup__button_disabled');
    button.disabled = true;
@@ -82,9 +84,8 @@ function openEditPopup() {
 }
 
 function openAddPopup() {
-   restartError(popupAdd);
-   const form = popupAdd.querySelector('.popup__container');
-   form.reset();
+   restartError(popupAdd);   
+   cardForm.reset();
    openPopup(popupAdd);
 }
 
