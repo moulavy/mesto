@@ -39,8 +39,13 @@ function toggleButton(inputArray, buttonElement, config) {
 function setEventListener(formElement, config) {
    const inputArray = Array.from(formElement.querySelectorAll(config.inputSelector));
    const buttonElement = formElement.querySelector(config.submitButtonSelector);
-   toggleButton(inputArray, buttonElement, config);
-   inputArray.forEach((inputElement) => {
+   formElement.addEventListener('reset', () => {
+      setTimeout(() => {
+         toggleButton(inputArray, buttonElement, config);
+      }, 0);
+   })
+    toggleButton(inputArray, buttonElement, config);
+   inputArray.forEach((inputElement) => {      
       inputElement.addEventListener('input', () => {
          isValid(formElement, inputElement, config);
          toggleButton(inputArray, buttonElement, config);

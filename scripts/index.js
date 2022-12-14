@@ -18,6 +18,7 @@ const formAddElement = document.querySelector('.popup-add__container');
 const nameImgInput = formAddElement.querySelector('.popup__input_value_name-img');
 const linkImgInput = formAddElement.querySelector('.popup__input_value_link-img');
 const buttonSubmitCardAdd = formAddElement.querySelector('.popup__button-add');
+
 /*для popup-img*/
 const buttonCloseImg = document.querySelector('.popup-img__button-close');
 const popupImg = document.querySelector('.popup-img');
@@ -29,17 +30,8 @@ const titleImgPopup = document.querySelector('.popup-img__subtitle');
 const cardsContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#elements__element').content;
 
-const cardForm = popupAdd.querySelector('.popup__container');
-
-function disableSubmitButton(button) {
-   button.classList.add('popup__button_disabled');
-   button.disabled = true;
-}
-
-function enableSubmitButton(button) {
-   button.classList.remove('popup__button_disabled');
-   button.disabled = false;
-}
+const cardFormAdd = popupAdd.querySelector('.popup__container');
+const cardFormEdit = popupEdit.querySelector('.popup__container');
 
 function restartError(popup) {
    const inputArray = Array.from(popup.querySelectorAll(".popup__input"));
@@ -50,9 +42,7 @@ function restartError(popup) {
    })
 }
 
-
-
-function closePopup(popup) {
+function closePopup(popup) {  
    popup.classList.remove('popup_opened');  
    document.removeEventListener('keydown', closeByEsc);   
 }
@@ -74,18 +64,17 @@ function openPopup(popup) {
    document.addEventListener('keydown', closeByEsc);   
 }
 
-
 function openEditPopup() {
    restartError(popupEdit);
+   cardFormEdit.reset();
    nameInput.value = profileName.textContent;
-   jobInput.value = profileDescription.textContent;
-   enableSubmitButton(buttonSubmitProfileEdit);
+   jobInput.value = profileDescription.textContent;  
    openPopup(popupEdit);
 }
 
 function openAddPopup() {
    restartError(popupAdd);   
-   cardForm.reset();
+   cardFormAdd.reset();
    openPopup(popupAdd);
 }
 
@@ -139,9 +128,7 @@ function handleCardFormSubmit(evt) {
    data.name = nameImgInput.value;
    data.link = linkImgInput.value;
    renderCard(data, cardsContainer);   
-   closePopup(popupAdd);   
-   disableSubmitButton(buttonSubmitCardAdd);
-
+   closePopup(popupAdd);     
 }
 
 /*создание карточек из массива*/
