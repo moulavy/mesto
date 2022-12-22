@@ -106,22 +106,7 @@ class Card{
       this._itemElementImg.alt = this._cardName;
       this._itemElementTitle.textContent = this._cardName;
    }
-/*getTemplate
-   _getTemplate(){
-      const itemElement = document.querySelector(this._templateSelector).content.cloneNode(true);
-      const itemElementLi = itemElement.querySelector('.elements__element');
-      const itemElementImg = itemElement.querySelector('.elements__image');
-      const itemElementTitle = itemElement.querySelector('.elements__title')
-      const itemElementLike = itemElement.querySelector('.elements__button-like');
-      const itemElementDelete = itemElement.querySelector('.elements__button-delete');
 
-      itemElementImg.src = this._cardLink;
-      itemElementImg.alt = this._cardName;
-      itemElementTitle.textContent = this._cardName;
-
-      return itemElement;
-   }
-   */
    generateCard(){      
       this._setEventListener();
       return this._itemElement;
@@ -150,40 +135,6 @@ class Card{
    
 }
 
-/*createCard
-function createCard(card) {
-   const itemElement = cardTemplate.cloneNode(true);
-   const itemElementLi = itemElement.querySelector('.elements__element');
-   const itemElementImg = itemElement.querySelector('.elements__image');
-   const itemElementTitle = itemElement.querySelector('.elements__title')
-   const itemElementLike = itemElement.querySelector('.elements__button-like');
-   const itemElementDelete = itemElement.querySelector('.elements__button-delete');
-
-   itemElementImg.src = card.link;
-   itemElementImg.alt = card.name;
-   itemElementTitle.textContent = card.name;
-
-   function openImg() {
-      openPopup(popupImg);
-      titleImgPopup.textContent = card.name;
-      photoPopup.src = card.link;
-      photoPopup.alt = card.name;
-   }
-   
-   function handleDelete() {
-      itemElementLi.remove();
-   }
-   function handleLike() {
-      itemElementLike.classList.toggle('elements__button-like_active');
-   }
-
-   itemElementLike.addEventListener('click', handleLike);
-   itemElementDelete.addEventListener('click', handleDelete);
-   itemElementImg.addEventListener('click', openImg);
-
-   return itemElement;
-}
-*/
 function renderCard(cardItem, container) {
    const card = new Card(cardItem, cardTemplate);  
    
