@@ -1,9 +1,10 @@
-import { popupImg, openPopup, titleImgPopup, photoPopup } from './index.js';
 export class Card {
-   constructor(card, cardTemplate) {
+   constructor(card, cardTemplate, handleOpenImg) {
       this._cardTemplate = cardTemplate;
       this._cardLink = card.link;
       this._cardName = card.name;
+
+      this._handleOpenImg = handleOpenImg;
 
       this._itemElement = this._cardTemplate.cloneNode(true);
       this._itemElementLi = this._itemElement.querySelector('.elements__element');
@@ -29,10 +30,7 @@ export class Card {
    }
 
    _openImg() {
-      openPopup(popupImg);
-      titleImgPopup.textContent = this._cardName;
-      photoPopup.src = this._cardLink;
-      photoPopup.alt = this._cardName;
+      this._handleOpenImg(this._cardName, this._cardLink);
    }
 
    _handleDelete() {

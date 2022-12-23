@@ -80,9 +80,9 @@ function restartError(popup) {
    })
 }
 
-function closePopup(popup) {  
-   popup.classList.remove('popup_opened');  
-   document.removeEventListener('keydown', closeByEsc);   
+function closePopup(popup) {
+   popup.classList.remove('popup_opened');
+   document.removeEventListener('keydown', closeByEsc);
 }
 
 function closeByEsc(e) {
@@ -99,19 +99,19 @@ function closePopupOverlay(e) {
 
 export function openPopup(popup) {
    popup.classList.add('popup_opened');
-   document.addEventListener('keydown', closeByEsc);   
+   document.addEventListener('keydown', closeByEsc);
 }
 
 function openEditPopup() {
    restartError(popupEdit);
    cardFormEdit.reset();
    nameInput.value = profileName.textContent;
-   jobInput.value = profileDescription.textContent;  
+   jobInput.value = profileDescription.textContent;
    openPopup(popupEdit);
 }
 
 function openAddPopup() {
-   restartError(popupAdd);   
+   restartError(popupAdd);
    cardFormAdd.reset();
    openPopup(popupAdd);
 }
@@ -119,13 +119,13 @@ function openAddPopup() {
 function handleProfileFormSubmit(evt) {
    evt.preventDefault();
    profileName.textContent = nameInput.value;
-   profileDescription.textContent = jobInput.value;   
+   profileDescription.textContent = jobInput.value;
    closePopup(popupEdit);
 }
 
 function renderCard(cardItem, container) {
-   const card = new Card(cardItem, cardTemplate);  
-   
+   const card = new Card(cardItem, cardTemplate, openImg);
+
    container.prepend(card.generateCard());
 }
 
@@ -134,8 +134,8 @@ function handleCardFormSubmit(evt) {
    const data = {};
    data.name = nameImgInput.value;
    data.link = linkImgInput.value;
-   renderCard(data,cardsContainer);   
-   closePopup(popupAdd);     
+   renderCard(data, cardsContainer);
+   closePopup(popupAdd);
 }
 
 /*создание карточек из массива*/
@@ -151,7 +151,14 @@ function enableValidationForms(config) {
    })
 }
 
-enableValidationForms(settingsValidate); 
+function openImg(cardName, cardLink) {
+   openPopup(popupImg);
+   titleImgPopup.textContent = cardName;
+   photoPopup.src = cardLink;
+   photoPopup.alt = cardName;
+}
+
+enableValidationForms(settingsValidate);
 
 buttonOpenCardPopup.addEventListener('click', openAddPopup);
 buttonCloseAdd.addEventListener('click', () => closePopup(popupAdd));
