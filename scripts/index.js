@@ -1,41 +1,7 @@
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js';
+import { settingsValidate, initialCards } from './constans.js'
 
-const settingsValidate = {
-   formSelector: '.popup__form',
-   inputSelector: '.popup__input',
-   submitButtonSelector: '.popup__button',
-   inactiveButtonClass: 'popup__button_disabled',
-   inputErrorClass: 'popup__input_type_error',
-   errorClass: 'popup__error_visible'
-}
-
-const initialCards = [
-   {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-   },
-   {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-   },
-   {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-   },
-   {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-   },
-   {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-   },
-   {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-   }
-];
 
 /*для edit*/
 const buttonCloseEdit = document.querySelector('.popup-edit__button-close');
@@ -71,15 +37,6 @@ const cardTemplate = document.querySelector('#elements__element').content;
 const cardFormAdd = popupAdd.querySelector('.popup__container');
 const cardFormEdit = popupEdit.querySelector('.popup__container');
 
-function restartError(popup) {
-   const inputArray = Array.from(popup.querySelectorAll(".popup__input"));
-   inputArray.forEach((inputElement) => {
-      const errorElement = popup.querySelector(`.${inputElement.id}-error`);
-      inputElement.classList.remove("popup__input_type_error");
-      errorElement.textContent = '';
-   })
-}
-
 function closePopup(popup) {
    popup.classList.remove('popup_opened');
    document.removeEventListener('keydown', closeByEsc);
@@ -102,8 +59,7 @@ export function openPopup(popup) {
    document.addEventListener('keydown', closeByEsc);
 }
 
-function openEditPopup() {
-   restartError(popupEdit);
+function openEditPopup() { 
    cardFormEdit.reset();
    nameInput.value = profileName.textContent;
    jobInput.value = profileDescription.textContent;
@@ -111,7 +67,6 @@ function openEditPopup() {
 }
 
 function openAddPopup() {
-   restartError(popupAdd);
    cardFormAdd.reset();
    openPopup(popupAdd);
 }
@@ -124,8 +79,7 @@ function handleProfileFormSubmit(evt) {
 }
 
 function renderCard(cardItem, container) {
-   const card = new Card(cardItem, cardTemplate, openImg);
-
+   const card = new Card(cardItem, '#elements__element', openImg);
    container.prepend(card.generateCard());
 }
 

@@ -1,13 +1,14 @@
 export class Card {
-   constructor(card, cardTemplate, handleOpenImg) {
-      this._cardTemplate = cardTemplate;
-      this._cardLink = card.link;
-      this._cardName = card.name;
-
+   constructor(cardData, templateSelector, handleOpenImg) {
+      this._templateSelector = templateSelector;
+      this._cardLink = cardData.link;
+      this._cardName = cardData.name;
       this._handleOpenImg = handleOpenImg;
+   }
 
-      this._itemElement = this._cardTemplate.cloneNode(true);
-      this._itemElementLi = this._itemElement.querySelector('.elements__element');
+   generateCard() {
+      this._itemElement = document.querySelector(this._templateSelector).content.querySelector('.elements__element').cloneNode('true');
+
       this._itemElementImg = this._itemElement.querySelector('.elements__image');
       this._itemElementTitle = this._itemElement.querySelector('.elements__title')
       this._itemElementLike = this._itemElement.querySelector('.elements__button-like');
@@ -16,10 +17,9 @@ export class Card {
       this._itemElementImg.src = this._cardLink;
       this._itemElementImg.alt = this._cardName;
       this._itemElementTitle.textContent = this._cardName;
-   }
 
-   generateCard() {
       this._setEventListener();
+
       return this._itemElement;
    }
 
@@ -34,7 +34,7 @@ export class Card {
    }
 
    _handleDelete() {
-      this._itemElementLi.remove();
+      this._itemElement.remove();
    }
 
    _handleLike() {
