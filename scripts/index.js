@@ -85,9 +85,11 @@ function renderCard(cardItem, container) {
 
 function handleCardFormSubmit(evt) {
    evt.preventDefault();
-   const data = {};
-   data.name = nameImgInput.value;
-   data.link = linkImgInput.value;
+   const data = {
+      name: nameImgInput.value,
+      link: linkImgInput.value
+   };
+   
    renderCard(data, cardsContainer);
    closePopup(popupAdd);
 }
@@ -97,7 +99,7 @@ initialCards.forEach((cardItem) => {
    renderCard(cardItem, cardsContainer)
 });
 
-function enableValidationForms(config) {
+function enableFormsValidation(config) {
    const formArray = Array.from(document.querySelectorAll(config.formSelector));
    formArray.forEach((formElement) => {
       const form = new FormValidator(settingsValidate, formElement);
@@ -112,7 +114,7 @@ function openImg(cardName, cardLink) {
    photoPopup.alt = cardName;
 }
 
-enableValidationForms(settingsValidate);
+enableFormsValidation(settingsValidate);
 
 buttonOpenCardPopup.addEventListener('click', openAddPopup);
 buttonCloseAdd.addEventListener('click', () => closePopup(popupAdd));
