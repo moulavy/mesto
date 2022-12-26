@@ -7,7 +7,7 @@ export class Card {
    }
 
    generateCard() {
-      this._itemElement = document.querySelector(this._templateSelector).content.querySelector('.elements__element').cloneNode('true');
+      this._itemElement = this._createCard();
 
       this._itemElementImg = this._itemElement.querySelector('.elements__image');
       this._itemElementTitle = this._itemElement.querySelector('.elements__title')
@@ -22,7 +22,9 @@ export class Card {
 
       return this._itemElement;
    }
-
+   _createCard() {
+      return document.querySelector(this._templateSelector).content.querySelector('.elements__element').cloneNode('true')
+   }
    _setEventListener() {
       this._itemElementLike.addEventListener('click', () => this._handleLike());
       this._itemElementDelete.addEventListener('click', () => this._handleDelete());

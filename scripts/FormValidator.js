@@ -15,9 +15,7 @@ export class FormValidator {
       this._form.addEventListener('reset', () => {
          setTimeout(() => {
             this._inputArray.forEach((inputElement) => {
-               const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
-               inputElement.classList.remove("popup__input_type_error");
-               errorElement.textContent = '';
+               this._hideInputError(inputElement);
             })
             this._toggleButton();
          }, 0);
