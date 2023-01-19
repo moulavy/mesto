@@ -1,7 +1,7 @@
 import { Card } from './Card.js'
 import Section from './Section.js';
-import Popup from './Popup.js';
-import PopupWithImage from './PopupWithImage.js';
+//import Popup from './Popup.js';
+//import PopupWithImage from './PopupWithImage.js';
 import { FormValidator } from './FormValidator.js';
 import { settingsValidate, initialCards } from './constans.js'
 
@@ -64,7 +64,7 @@ export function openPopup(popup) {
    document.addEventListener('keydown', closeByEsc);
 }
 
-function openEditPopup() { 
+function openEditPopup() {
    cardFormEdit.reset();
    nameInput.value = profileName.textContent;
    jobInput.value = profileDescription.textContent;
@@ -83,23 +83,6 @@ function handleProfileFormSubmit(evt) {
    closePopup(popupEdit);
 }
 
-
-// function renderCard(cardItem, container) {
-//    const card = new Card(cardItem, '#elements__element', openImg);
-//    container.prepend(card.generateCard());
-// }
-
-function handleCardFormSubmit(evt) {
-   evt.preventDefault();
-   const data = {
-      name: nameImgInput.value,
-      link: linkImgInput.value
-   };
-  
-    //renderCard(data, cardsContainer);
-   closePopup(popupAdd);
-}
-
 const cardList = new Section({
    items: initialCards,
    renderer: (item) => {
@@ -111,10 +94,17 @@ const cardList = new Section({
 
 cardList.renderItems();
 
-/*создание карточек из массива*/
-// initialCards.forEach((cardItem) => {
-//    renderCard(cardItem, cardsContainer)
-// });
+function handleCardFormSubmit(evt) {
+   evt.preventDefault();
+   const data = {
+      name: nameImgInput.value,
+      link: linkImgInput.value
+   };
+
+   const card = new Card(data, '#elements__element', openImg);
+   cardList.addItem(card.generateCard());
+   closePopup(popupAdd);
+}
 
 function enableFormsValidation(config) {
    const formArray = Array.from(document.querySelectorAll(config.formSelector));
