@@ -1,4 +1,5 @@
 import { Card } from './Card.js'
+import Section from './Section.js';
 import { FormValidator } from './FormValidator.js';
 import { settingsValidate, initialCards } from './constans.js'
 
@@ -31,11 +32,13 @@ export const photoPopup = document.querySelector('.popup-img__photo');
 export const titleImgPopup = document.querySelector('.popup-img__subtitle');
 
 /*вывод карточек из массива на страницу*/
-const cardsContainer = document.querySelector('.elements__list');
+const cardsContainerSelector = '.elements__list';
 const cardTemplate = document.querySelector('#elements__element').content;
 
 const cardFormAdd = popupAdd.querySelector('.popup__container');
 const cardFormEdit = popupEdit.querySelector('.popup__container');
+
+
 
 function closePopup(popup) {
    popup.classList.remove('popup_opened');
@@ -78,10 +81,11 @@ function handleProfileFormSubmit(evt) {
    closePopup(popupEdit);
 }
 
-function renderCard(cardItem, container) {
-   const card = new Card(cardItem, '#elements__element', openImg);
-   container.prepend(card.generateCard());
-}
+
+// function renderCard(cardItem, container) {
+//    const card = new Card(cardItem, '#elements__element', openImg);
+//    container.prepend(card.generateCard());
+// }
 
 function handleCardFormSubmit(evt) {
    evt.preventDefault();
@@ -89,15 +93,26 @@ function handleCardFormSubmit(evt) {
       name: nameImgInput.value,
       link: linkImgInput.value
    };
-   
-   renderCard(data, cardsContainer);
+  
+    //renderCard(data, cardsContainer);
    closePopup(popupAdd);
 }
 
+const cardList = new Section({
+   items: initialCards,
+   renderer: (item) => {
+      const card = new Card(item, '#elements__element', openImg)
+      const cardElement = card.generateCard();
+      cardList.addItem(cardElement);
+   },
+}, cardsContainerSelector);
+
+cardList.renderItems();
+
 /*создание карточек из массива*/
-initialCards.forEach((cardItem) => {
-   renderCard(cardItem, cardsContainer)
-});
+// initialCards.forEach((cardItem) => {
+//    renderCard(cardItem, cardsContainer)
+// });
 
 function enableFormsValidation(config) {
    const formArray = Array.from(document.querySelectorAll(config.formSelector));
