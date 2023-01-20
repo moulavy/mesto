@@ -100,7 +100,7 @@ function handleCardFormSubmit(evt) {
       link: linkImgInput.value
    };
 
-   const card = new Card(data, '#elements__element', imagePopup.open);
+   const card = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
    cardList.addItem(card.generateCard());
    closePopup(popupAdd);
 }
@@ -120,12 +120,12 @@ buttonCloseAdd.addEventListener('click', () => closePopup(popupAdd));
 
 popupEdit.addEventListener('click', closePopupOverlay);
 popupAdd.addEventListener('click', closePopupOverlay);
-//popupImg.addEventListener('click', closePopupOverlay);
+
 
 buttonOpenProfilePopup.addEventListener('click', openEditPopup);
 buttonCloseEdit.addEventListener('click', () => closePopup(popupEdit));
+imagePopup.setEventListeners();
 
-//buttonCloseImg.addEventListener('click', () => closePopup(popupImg));
 
 formEditElement.addEventListener('submit', handleProfileFormSubmit);
 formAddElement.addEventListener('submit', handleCardFormSubmit);
