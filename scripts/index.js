@@ -2,13 +2,14 @@ import { Card } from './Card.js'
 import Section from './Section.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 import { FormValidator } from './FormValidator.js';
 import { settingsValidate, initialCards } from './constans.js'
 
 
 /*для edit*/
 const buttonCloseEdit = document.querySelector('.popup-edit__button-close');
-const popupEdit = document.querySelector('.popup-edit');
+// const popupEdit = document.querySelector('.popup-edit');
 const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
 const formEditElement = document.querySelector('.popup-edit__container');
 const nameInput = formEditElement.querySelector('.popup__input_value_name');
@@ -38,7 +39,7 @@ const cardsContainerSelector = '.elements__list';
 const cardTemplate = document.querySelector('#elements__element').content;
 
 // const cardFormAdd = popupAdd.querySelector('.popup__container');
-const cardFormEdit = popupEdit.querySelector('.popup__container');
+// const cardFormEdit = popupEdit.querySelector('.popup__container');
 
 function closePopup(popup) {
    popup.classList.remove('popup_opened');
@@ -62,17 +63,13 @@ export function openPopup(popup) {
    document.addEventListener('keydown', closeByEsc);
 }
 
-function openEditPopup() {
-   cardFormEdit.reset();
-   nameInput.value = profileName.textContent;
-   jobInput.value = profileDescription.textContent;
-   openPopup(popupEdit);
-}
+
 
 // function openAddPopup() {
 //    cardFormAdd.reset();
 //    openPopup(popupAdd);
 // }
+
 
 function addFormSubmitCallback (data) {
    
@@ -96,14 +93,32 @@ addPopupWithForm.setEventListeners();
 //    cardList.addItem(card.generateCard());
 //    closePopup(popupAdd);
 // }
+// function openEditPopup() {
+//    cardFormEdit.reset();
+//    nameInput.value = profileName.textContent;
+//    jobInput.value = profileDescription.textContent;
+//    openPopup(popupEdit);
+// }
 
 
-function handleProfileFormSubmit(evt) {
-   evt.preventDefault();
-   profileName.textContent = nameInput.value;
-   profileDescription.textContent = jobInput.value;
-   closePopup(popupEdit);
+function editFormSubmitCallback(data) {
+   
+   userInfo.setUserInfo(data);
+   editPopupWithForm.close();
+   
 }
+const editPopupWithForm = new PopupWithForm('.popup-edit', editFormSubmitCallback);
+editPopupWithForm.setEventListeners();
+const userInfo = new UserInfo('.profile__name', '.profile__description');
+
+
+
+// function handleProfileFormSubmit(evt) {
+   
+//    // profileName.textContent = nameInput.value;
+//    // profileDescription.textContent = jobInput.value;
+//    closePopup(popupEdit);
+// }
 
 const imagePopup = new PopupWithImage('.popup-img');
 imagePopup.setEventListeners();
@@ -130,18 +145,25 @@ function enableFormsValidation(config) {
 
 enableFormsValidation(settingsValidate);
 
- buttonOpenCardPopup.addEventListener('click', addPopupWithForm.open.bind(addPopupWithForm));
+buttonOpenCardPopup.addEventListener('click', addPopupWithForm.open.bind(addPopupWithForm));
+buttonOpenProfilePopup.addEventListener('click', () => {
+   const userData = userInfo.getUserInfo();
+   nameInput.value = userData.profileName;
+   jobInput.value = userData.profileDescription;
+   editPopupWithForm.open();
+});
+
 // buttonCloseAdd.addEventListener('click', () => closePopup(popupAdd));
 
-popupEdit.addEventListener('click', closePopupOverlay);
+// popupEdit.addEventListener('click', closePopupOverlay);
 // popupAdd.addEventListener('click', closePopupOverlay);
 
 
-buttonOpenProfilePopup.addEventListener('click', openEditPopup);
-buttonCloseEdit.addEventListener('click', () => closePopup(popupEdit));
+// buttonOpenProfilePopup.addEventListener('click', openEditPopup);
+// buttonCloseEdit.addEventListener('click', () => closePopup(popupEdit));
 
 
 
-formEditElement.addEventListener('submit', handleProfileFormSubmit);
+//formEditElement.addEventListener('submit', handleProfileFormSubmit);
 // formAddElement.addEventListener('submit', handleCardFormSubmit);
 

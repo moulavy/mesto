@@ -3,15 +3,17 @@ export default class UserInfo{
       this._name = document.querySelector(selectorName);
       this._info = document.querySelector(selectorInfo);
    }
+   //когда данные пользователя нужно будет подставить в форму при открытии
    getUserInfo() {
-      const user ={
+      return {
          profileName: this._name.textContent,
          profileDescription: this._info.textContent
       }
-      return user;
+     
    }
+   //принимает новые данные пользователя и обновляет их на странице
    setUserInfo(user) {
       this._name.textContent = user.name;
-      this._info = user.job;
+      this._info.textContent = user.description;
    }
 }
