@@ -74,7 +74,7 @@ function openEditPopup() {
 //    openPopup(popupAdd);
 // }
 
-const addFormSubmitCallback = (data) => {
+function addFormSubmitCallback (data) {
    
    const card = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
    cardList.addItem(card.generateCard());
@@ -84,6 +84,18 @@ const addFormSubmitCallback = (data) => {
 
 const addPopupWithForm = new PopupWithForm('.popup-add', addFormSubmitCallback);
 addPopupWithForm.setEventListeners();
+
+// function handleCardFormSubmit(evt) {
+//    evt.preventDefault();
+//    const data = {
+//       name: nameImgInput.value,
+//       link: linkImgInput.value
+//    };
+
+//    const card = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
+//    cardList.addItem(card.generateCard());
+//    closePopup(popupAdd);
+// }
 
 
 function handleProfileFormSubmit(evt) {
@@ -107,17 +119,6 @@ const cardList = new Section({
 
 cardList.renderItems();
 
-// function handleCardFormSubmit(evt) {
-//    evt.preventDefault();
-//    const data = {
-//       name: nameImgInput.value,
-//       link: linkImgInput.value
-//    };
-
-//    const card = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
-//    cardList.addItem(card.generateCard());
-//    closePopup(popupAdd);
-// }
 
 function enableFormsValidation(config) {
    const formArray = Array.from(document.querySelectorAll(config.formSelector));
