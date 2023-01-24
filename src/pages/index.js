@@ -59,8 +59,7 @@ enableFormsValidation(settingsValidate);
 buttonOpenCardPopup.addEventListener('click', addPopupWithForm.open.bind(addPopupWithForm));
 buttonOpenProfilePopup.addEventListener('click', () => {
    const userData = userInfo.getUserInfo();
-   nameInput.value = userData.profileName;
-   jobInput.value = userData.profileDescription;
+   editPopupWithForm.setInputValues(userData);   
    editPopupWithForm.open();
 });
 

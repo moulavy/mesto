@@ -22,11 +22,11 @@ export default class Popup{
          this.close();
       }
    }
-
+   
    setEventListeners() {
       const buttonClose = this._popup.querySelector(".popup__button-close");
       buttonClose.addEventListener("click", this.close.bind(this));
-      this._popup.addEventListener("click", this._handleOverlayClose.bind(this));
+      this._popup.addEventListener("mousedown", this._handleOverlayClose.bind(this));
       
    }
 }

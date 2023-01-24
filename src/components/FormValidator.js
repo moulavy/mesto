@@ -6,7 +6,7 @@ export class FormValidator {
    }
 
    enableValidation() {      
-      this._setEventListener(this._form, this._config);
+      this._setEventListener();
    }
 
    _setEventListener() {
