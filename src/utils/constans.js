@@ -1,3 +1,10 @@
+export const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
+export const formEditElement = document.querySelector('.popup-edit__container');
+export const nameInput = formEditElement.querySelector('.popup__input_value_name');
+export const jobInput = formEditElement.querySelector('.popup__input_value_description');
+export const buttonOpenCardPopup = document.querySelector('.profile__add-button');
+export const cardsContainerSelector = '.elements__list';
+
 export const settingsValidate = {
    formSelector: '.popup__form',
    /*селектор используется для создания массива всех существующих форм*/

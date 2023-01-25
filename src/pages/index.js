@@ -6,17 +6,15 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
-import { settingsValidate, initialCards } from '../utils/constans.js'
+import { cardsContainerSelector, buttonOpenProfilePopup, buttonOpenCardPopup, settingsValidate, initialCards } from '../utils/constans.js'
 
-const buttonOpenProfilePopup = document.querySelector('.profile__edit-button');
-const formEditElement = document.querySelector('.popup-edit__container');
-const nameInput = formEditElement.querySelector('.popup__input_value_name');
-const jobInput = formEditElement.querySelector('.popup__input_value_description');
-const buttonOpenCardPopup = document.querySelector('.profile__add-button');
-const cardsContainerSelector = '.elements__list';
+function createCard(data) {
+   const cardElement = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
+   return cardElement;
+}
 
 function addFormSubmitCallback (data) {   
-   const card = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
+   const card = createCard(data);
    cardList.addItem(card.generateCard());
    addPopupWithForm.close();  
 }
@@ -38,7 +36,7 @@ imagePopup.setEventListeners();
 const cardList = new Section({
    items: initialCards,
    renderer: (item) => {
-      const card = new Card(item, '#elements__element', imagePopup.open.bind(imagePopup))
+      const card = createCard(item);
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
    },
