@@ -1,5 +1,6 @@
 import './index.css';
 
+import { Api } from '../components/Api.js'
 import { Card } from '../components/Card.js'
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -7,6 +8,31 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { cardsContainerSelector, buttonOpenProfilePopup, buttonOpenCardPopup, settingsValidate, initialCards } from '../utils/constans.js'
+
+const api = new Api({
+   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-59',
+   headers: {
+      authorization: '38bff190-d9e4-489d-92fd-14576c2befb7',
+      'Content-Type': 'application/json'
+   }
+}); 
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+   .then(([resUser, resCards]) => {
+      userInfo.setUserInfo(resUser);      
+      const cardList = new Section({
+         items: resCards,
+         renderer: (item) => {
+            const card = createCard(item);
+            const cardElement = card.generateCard();
+            cardList.addItem(cardElement);
+         },
+      }, cardsContainerSelector);
+      cardList.renderItems();
+   })
+   .catch((err) => {
+      console.log(err);
+   });
 
 function createCard(data) {
    const cardElement = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
@@ -28,21 +54,12 @@ function editFormSubmitCallback(data) {
 }
 const editPopupWithForm = new PopupWithForm('.popup-edit', editFormSubmitCallback);
 editPopupWithForm.setEventListeners();
-const userInfo = new UserInfo('.profile__name', '.profile__description');
+const userInfo = new UserInfo('.profile__name', '.profile__description','.profile__avatar');
 
 const imagePopup = new PopupWithImage('.popup-img');
 imagePopup.setEventListeners();
 
-const cardList = new Section({
-   items: initialCards,
-   renderer: (item) => {
-      const card = createCard(item);
-      const cardElement = card.generateCard();
-      cardList.addItem(cardElement);
-   },
-}, cardsContainerSelector);
 
-cardList.renderItems();
 
 function enableFormsValidation(config) {
    const formArray = Array.from(document.querySelectorAll(config.formSelector));
