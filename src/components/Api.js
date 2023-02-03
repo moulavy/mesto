@@ -30,6 +30,22 @@ export class Api {
          });
    }
 
-  
+   updateUserInfo(data) {
+      return fetch(`${this._baseUrl}/users/me`, {
+         method: 'PATCH',
+         headers: this._headers,
+         body: JSON.stringify({
+            name: data.name,
+            about: data.about
+         })
+      })
+            .then(res => {
+               if (res.ok) {
+                  return res.json();
+               }
+               return Promise.reject(`Ошибка: ${res.status}`);
+            });
+   }
+ 
 }
 

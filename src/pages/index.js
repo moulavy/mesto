@@ -16,10 +16,11 @@ const api = new Api({
       'Content-Type': 'application/json'
    }
 }); 
-
+/*получаем данные с сервера*/
 Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([resUser, resCards]) => {
-      userInfo.setUserInfo(resUser);      
+      userInfo.setUserInfo(resUser); 
+      userInfo.setUserAvatar(resUser);
       const cardList = new Section({
          items: resCards,
          renderer: (item) => {
@@ -33,6 +34,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
    .catch((err) => {
       console.log(err);
    });
+
+
 
 function createCard(data) {
    const cardElement = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
@@ -48,8 +51,12 @@ function addFormSubmitCallback (data) {
 const addPopupWithForm = new PopupWithForm('.popup-add', addFormSubmitCallback);
 addPopupWithForm.setEventListeners();
 
-function editFormSubmitCallback(data) {   
-   userInfo.setUserInfo(data);
+function editFormSubmitCallback(data) {     
+   api.updateUserInfo(data)
+      .then((res) => {
+         console.log(res);
+         userInfo.setUserInfo(data);
+      })
    editPopupWithForm.close();   
 }
 const editPopupWithForm = new PopupWithForm('.popup-edit', editFormSubmitCallback);

@@ -8,7 +8,7 @@ export default class PopupWithForm extends Popup{
       this._inputs = [...this._form.querySelectorAll('.popup__input')];
      
    }
-
+/*получаем данные которые вводим в инпут*/
    _getInputValues(){
       const inputValues = {};
       this._inputs.forEach((input) => {
@@ -17,7 +17,7 @@ export default class PopupWithForm extends Popup{
       
       return inputValues;
    }
-
+/*установка начальный данных в инпут*/
    setInputValues(data) {      
       this._inputs.forEach((input) => {
          input.value = data[input.name];         
