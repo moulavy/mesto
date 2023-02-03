@@ -46,6 +46,23 @@ export class Api {
                return Promise.reject(`Ошибка: ${res.status}`);
             });
    }
+
+   addNewCard(data) {
+      return fetch(`${this._baseUrl}/cards`, {
+         method: 'POST',
+         headers: this._headers,
+         body: JSON.stringify({
+            name: data.name,
+            link: data.link
+         })
+      })
+         .then(res => {
+            if (res.ok) {
+               return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+         });
+   }
  
 }
 

@@ -16,58 +16,50 @@ const api = new Api({
       'Content-Type': 'application/json'
    }
 }); 
-/*получаем данные с сервера*/
+/*получаем данные с сервера(данные профиля и массив карточек)*/
 Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([resUser, resCards]) => {
       userInfo.setUserInfo(resUser); 
       userInfo.setUserAvatar(resUser);
-      const cardList = new Section({
-         items: resCards,
-         renderer: (item) => {
-            const card = createCard(item);
-            const cardElement = card.generateCard();
-            cardList.addItem(cardElement);
-         },
-      }, cardsContainerSelector);
-      cardList.renderItems();
+      cardList.renderItems(resCards);
    })
    .catch((err) => {
       console.log(err);
    });
 
-
-
-function createCard(data) {
-   const cardElement = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
-   return cardElement;
+/*добавление карточки из формы*/
+function addFormSubmitCallback(data) {     
+   api.addNewCard(data)
+      .then((res) => {
+         const card = createCard(data);
+         cardList.addItem(card.generateCard());
+         addPopupWithForm.close();
+      })
+      .catch((err) => {
+         console.log(err);
+      });
+    
 }
 
-function addFormSubmitCallback (data) {   
-   const card = createCard(data);
-   cardList.addItem(card.generateCard());
-   addPopupWithForm.close();  
-}
-
-const addPopupWithForm = new PopupWithForm('.popup-add', addFormSubmitCallback);
-addPopupWithForm.setEventListeners();
-
-function editFormSubmitCallback(data) {     
+/*редактирование данных профиля*/
+function editFormSubmitCallback(data) {
    api.updateUserInfo(data)
       .then((res) => {
-         console.log(res);
          userInfo.setUserInfo(data);
+         editPopupWithForm.close();
       })
-   editPopupWithForm.close();   
+      .catch((err) => {
+         console.log(err);
+      });
+
 }
-const editPopupWithForm = new PopupWithForm('.popup-edit', editFormSubmitCallback);
-editPopupWithForm.setEventListeners();
-const userInfo = new UserInfo('.profile__name', '.profile__description','.profile__avatar');
 
-const imagePopup = new PopupWithImage('.popup-img');
-imagePopup.setEventListeners();
+function createCard(data) {
+   const card = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
+   return card;
+}
 
-
-
+/*валидация, ошибки*/
 function enableFormsValidation(config) {
    const formArray = Array.from(document.querySelectorAll(config.formSelector));
    formArray.forEach((formElement) => {
@@ -75,6 +67,25 @@ function enableFormsValidation(config) {
       form.enableValidation();
    })
 }
+
+const addPopupWithForm = new PopupWithForm('.popup-add', addFormSubmitCallback);
+addPopupWithForm.setEventListeners();
+
+const editPopupWithForm = new PopupWithForm('.popup-edit', editFormSubmitCallback);
+editPopupWithForm.setEventListeners();
+
+const userInfo = new UserInfo('.profile__name', '.profile__description','.profile__avatar');
+
+const imagePopup = new PopupWithImage('.popup-img');
+imagePopup.setEventListeners();
+
+const cardList = new Section({   
+   renderer: (item) => {
+      const card = createCard(item);
+      const cardElement = card.generateCard();
+      cardList.addItem(cardElement);
+   },
+}, cardsContainerSelector);
 
 enableFormsValidation(settingsValidate);
 
