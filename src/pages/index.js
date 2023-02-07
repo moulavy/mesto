@@ -23,7 +23,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       userInfo.setUserInfo(resUser); 
       userInfo.setUserAvatar(resUser);      
       cardList.renderItems(resCards);
-      
+      console.log(resCards);
    })
    .catch((err) => {
       console.log(err);

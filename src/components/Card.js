@@ -4,6 +4,7 @@ export class Card {
       this._cardData = cardData;
       this._cardLink = cardData.link;
       this._cardName = cardData.name; 
+      this._userId = userId;
       this._handleOpenImg = handleOpenImg; 
       this._handleOpenConfirm = handleOpenConfirm;
       this._closeConfirm =closeConfirm;
@@ -22,7 +23,11 @@ export class Card {
       this._itemElementImg.src = this._cardLink;
       this._itemElementImg.alt = this._cardName;
       this._itemElementTitle.textContent = this._cardName;
-      this._itemElementLikeCounter.textContent = this._cardData.likes.length;    
+      this._itemElementLikeCounter.textContent = this._cardData.likes.length;
+
+      if (this._userId != this._cardData.owner._id) {
+         this._itemElementDelete.classList.add('elements__button-delete_disabled');
+      }
 
       this._setEventListener();
 
@@ -51,6 +56,7 @@ export class Card {
    }
 
    _handleDelete() {
+     
       this._itemElement.remove();
       this._closeConfirm();
    }   
