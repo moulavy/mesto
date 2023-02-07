@@ -20,8 +20,9 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([resUser, resCards]) => {
       userInfo.setUserInfo(resUser); 
-      userInfo.setUserAvatar(resUser);
+      userInfo.setUserAvatar(resUser);      
       cardList.renderItems(resCards);
+      
    })
    .catch((err) => {
       console.log(err);
@@ -31,7 +32,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 function addFormSubmitCallback(data) {     
    api.addNewCard(data)
       .then((res) => {
-         const card = createCard(data);
+         const card = createCard(res);
          cardList.addItem(card.generateCard());
          addPopupWithForm.close();
       })
@@ -45,7 +46,7 @@ function addFormSubmitCallback(data) {
 function editFormSubmitCallback(data) {
    api.updateUserInfo(data)
       .then((res) => {
-         userInfo.setUserInfo(data);
+         userInfo.setUserInfo(res);
          editPopupWithForm.close();
       })
       .catch((err) => {
@@ -54,8 +55,8 @@ function editFormSubmitCallback(data) {
 
 }
 
-function createCard(data) {
-   const card = new Card(data, '#elements__element', imagePopup.open.bind(imagePopup));
+function createCard(data) {   
+   const card = new Card(data, '#elements__element', userInfo.getUserId(),imagePopup.open.bind(imagePopup));
    return card;
 }
 
