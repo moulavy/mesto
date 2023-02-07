@@ -5,10 +5,11 @@ import { Card } from '../components/Card.js'
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import Popup from '../components/Popup.js';
+import PopupConfirm from '../components/PopupConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { cardsContainerSelector, buttonOpenProfilePopup, buttonOpenCardPopup, settingsValidate, initialCards } from '../utils/constans.js'
+
 
 const api = new Api({
    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-59',
@@ -57,7 +58,22 @@ function editFormSubmitCallback(data) {
 }
 
 function createCard(data) {   
-   const card = new Card(data, '#elements__element', userInfo.getUserId(),imagePopup.open.bind(imagePopup),confirmPopup.open.bind(confirmPopup),confirmPopup.close.bind(confirmPopup));
+   const card = new Card(data, '#elements__element', userInfo.getUserId(), imagePopup.open.bind(imagePopup), 
+      {
+         handleDeleteCard: () => {
+            confirmPopup.open();
+            confirmPopup.handlerSubmit(data._id,() => {
+               api.deleteCard(data._id)
+                  .then(() => {
+                     card.deleteCard();
+                     confirmPopup.close();
+                  })
+                  .catch((error) => { console.log(error) })
+                  .finally(setTimeout(() => (confirmPopup.close()), 500))
+            })
+         },
+
+   });
    return card;
 }
 
@@ -81,7 +97,7 @@ const userInfo = new UserInfo('.profile__name', '.profile__description','.profil
 const imagePopup = new PopupWithImage('.popup-img');
 imagePopup.setEventListeners();
 
-const confirmPopup = new Popup('.popup-confirm');
+const confirmPopup = new PopupConfirm('.popup-confirm');
 confirmPopup.setEventListeners();
 
 const cardList = new Section({   

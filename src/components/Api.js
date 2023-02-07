@@ -64,6 +64,19 @@ export class Api {
          });
    }
 
+   deleteCard(id) {
+      return fetch(`${this._baseUrl}/cards/${id}`, {
+         method: 'DELETE',
+         headers: this._headers         
+      })
+         .then(res => {
+            if (res.ok) {
+               return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+         });
+   }
+
    addLike(idCard) {
       return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
          method: 'PUT',
