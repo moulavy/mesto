@@ -1,10 +1,12 @@
 export class Card {
-   constructor(cardData, templateSelector, userId, handleOpenImg) {
+   constructor(cardData, templateSelector, userId, handleOpenImg,handleOpenConfirm,closeConfirm) {
       this._templateSelector = templateSelector;
       this._cardData = cardData;
       this._cardLink = cardData.link;
       this._cardName = cardData.name; 
       this._handleOpenImg = handleOpenImg; 
+      this._handleOpenConfirm = handleOpenConfirm;
+      this._closeConfirm =closeConfirm;
    }
    
 
@@ -31,7 +33,7 @@ export class Card {
    }
    _setEventListener() {
       this._itemElementLike.addEventListener('click', () => this._handleLike());
-      this._itemElementDelete.addEventListener('click', () => this._handleDelete());
+      this._itemElementDelete.addEventListener('click', () => this._openConfirm());
       this._itemElementImg.addEventListener('click', () => this._openImg());
    }
 
@@ -39,8 +41,18 @@ export class Card {
       this._handleOpenImg(this._cardName, this._cardLink);
    }
 
+   _openConfirm() {
+      this._handleOpenConfirm();
+      document.querySelector('.popup__button-confirm').addEventListener('click', (evt) => {
+         evt.preventDefault();
+         this._handleDelete();
+      });
+   
+   }
+
    _handleDelete() {
       this._itemElement.remove();
+      this._closeConfirm();
    }   
 
    _handleLike() {

@@ -5,6 +5,7 @@ import { Card } from '../components/Card.js'
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import Popup from '../components/Popup.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { cardsContainerSelector, buttonOpenProfilePopup, buttonOpenCardPopup, settingsValidate, initialCards } from '../utils/constans.js'
@@ -56,7 +57,7 @@ function editFormSubmitCallback(data) {
 }
 
 function createCard(data) {   
-   const card = new Card(data, '#elements__element', userInfo.getUserId(),imagePopup.open.bind(imagePopup));
+   const card = new Card(data, '#elements__element', userInfo.getUserId(),imagePopup.open.bind(imagePopup),confirmPopup.open.bind(confirmPopup),confirmPopup.close.bind(confirmPopup));
    return card;
 }
 
@@ -79,6 +80,9 @@ const userInfo = new UserInfo('.profile__name', '.profile__description','.profil
 
 const imagePopup = new PopupWithImage('.popup-img');
 imagePopup.setEventListeners();
+
+const confirmPopup = new Popup('.popup-confirm');
+confirmPopup.setEventListeners();
 
 const cardList = new Section({   
    renderer: (item) => {
