@@ -83,8 +83,7 @@ export class Api {
          headers: this._headers
       })
          .then((res) => {
-            if (res.ok) {
-               console.log('like');
+            if (res.ok) {               
                return res.json();
             }
             return Promise.reject(`Ошибка: ${res.status}`);

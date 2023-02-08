@@ -23,8 +23,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([resUser, resCards]) => {
       userInfo.setUserInfo(resUser); 
       userInfo.setUserAvatar(resUser);      
-      cardList.renderItems(resCards);
-      console.log(resCards);
+      cardList.renderItems(resCards);      
    })
    .catch((err) => {
       console.log(err);
@@ -68,10 +67,32 @@ function createCard(data) {
                      card.deleteCard();
                      confirmPopup.close();
                   })
-                  .catch((error) => { console.log(error) })
+                  .catch((err) => {
+                     console.log(err)
+                  })
                   .finally(setTimeout(() => (confirmPopup.close()), 500))
             })
          },
+         handleLikeCard: () => {
+            if (card.isLiked()) {
+               api.deleteLike(data._id)
+                  .then((res) => {
+                     card.updateLikes(res.likes);
+                  })
+                  .catch((err) => {
+                     console.log(err)
+                  })
+            }
+            else {
+               api.addLike(data._id)
+                  .then((res) => {
+                     card.updateLikes(res.likes);
+                  })
+                  .catch((err) => {
+                     console.log(err)
+                  })
+            }
+         }
 
    });
    return card;
