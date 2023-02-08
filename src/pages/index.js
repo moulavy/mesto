@@ -8,7 +8,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupConfirm from '../components/PopupConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
-import { cardsContainerSelector, buttonOpenProfilePopup, buttonOpenCardPopup, settingsValidate, initialCards } from '../utils/constans.js'
+import { cardsContainerSelector, buttonOpenProfilePopup, buttonOpenCardPopup, buttonOpenAvatarPopup, settingsValidate } from '../utils/constans.js'
 
 
 const api = new Api({
@@ -23,7 +23,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([resUser, resCards]) => {
       userInfo.setUserInfo(resUser); 
       userInfo.setUserAvatar(resUser);      
-      cardList.renderItems(resCards);      
+      cardList.renderItems(resCards);     
+      console.log(resUser);
    })
    .catch((err) => {
       console.log(err);
@@ -54,6 +55,18 @@ function editFormSubmitCallback(data) {
          console.log(err);
       });
 
+}
+
+/*обновление аватара*/
+function avatarFormSubmitCallback(data) {
+   api.updateAvatar(data)
+      .then((res) => {
+         userInfo.setUserAvatar(res);
+         avatarPopupWithForm.close();
+      })
+      .catch((err) => {
+         console.log(err);
+      });
 }
 
 function createCard(data) {   
@@ -113,6 +126,9 @@ addPopupWithForm.setEventListeners();
 const editPopupWithForm = new PopupWithForm('.popup-edit', editFormSubmitCallback);
 editPopupWithForm.setEventListeners();
 
+const avatarPopupWithForm = new PopupWithForm('.popup-avatar', avatarFormSubmitCallback);
+avatarPopupWithForm.setEventListeners();
+
 const userInfo = new UserInfo('.profile__name', '.profile__description','.profile__avatar');
 
 const imagePopup = new PopupWithImage('.popup-img');
@@ -137,5 +153,5 @@ buttonOpenProfilePopup.addEventListener('click', () => {
    editPopupWithForm.setInputValues(userData);   
    editPopupWithForm.open();
 });
-
+buttonOpenAvatarPopup.addEventListener('click', avatarPopupWithForm.open.bind(avatarPopupWithForm));
 

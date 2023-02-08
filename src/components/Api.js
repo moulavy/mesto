@@ -47,6 +47,22 @@ export class Api {
             });
    }
 
+   updateAvatar(data) {
+      return fetch(`${this._baseUrl}/users/me/avatar`, {
+         method: 'PATCH',
+         headers: this._headers,
+         body: JSON.stringify({
+            avatar: data.avatar,            
+         })
+      })
+         .then(res => {
+            if (res.ok) {
+               return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+         });
+   }
+
    addNewCard(data) {
       return fetch(`${this._baseUrl}/cards`, {
          method: 'POST',
@@ -102,6 +118,6 @@ export class Api {
             return Promise.reject(`Ошибка: ${res.status}`);
          })
    }
- 
+  
 }
 
