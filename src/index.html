@@ -13,7 +13,9 @@
     </header>
     <main class="content container">
       <section class="profile">
-        <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар" class="profile__avatar" />
+        <button type="button" class="profile__button-avatar">
+          <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар" class="profile__avatar" />
+        </button>
         <div class="profile__info">
           <h1 class="profile__name"></h1>
           <button aria-label="Edit" class="profile__edit-button"></button>
