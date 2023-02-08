@@ -5,7 +5,7 @@ import { Card } from '../components/Card.js'
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import PopupConfirm from '../components/PopupConfirm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { cardsContainerSelector, buttonOpenProfilePopup, buttonOpenCardPopup, buttonOpenAvatarPopup, settingsValidate } from '../utils/constans.js'
@@ -134,7 +134,7 @@ const userInfo = new UserInfo('.profile__name', '.profile__description','.profil
 const imagePopup = new PopupWithImage('.popup-img');
 imagePopup.setEventListeners();
 
-const confirmPopup = new PopupConfirm('.popup-confirm');
+const confirmPopup = new PopupWithConfirmation('.popup-confirm');
 confirmPopup.setEventListeners();
 
 const cardList = new Section({   
