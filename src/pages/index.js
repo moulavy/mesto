@@ -23,8 +23,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([resUser, resCards]) => {
       userInfo.setUserInfo(resUser); 
       userInfo.setUserAvatar(resUser);      
-      cardList.renderItems(resCards);     
-      console.log(resUser);
+      cardList.renderItems(resCards);           
    })
    .catch((err) => {
       console.log(err);
@@ -32,41 +31,53 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 /*добавление карточки из формы*/
 function addFormSubmitCallback(data) {     
+   addPopupWithForm.setButtonText('Создание...');
    api.addNewCard(data)
       .then((res) => {
          const card = createCard(res);
-         cardList.addItem(card.generateCard());
-         addPopupWithForm.close();
+         cardList.addItem(card.generateCard());         
       })
       .catch((err) => {
          console.log(err);
+      })
+      .finally(() => {
+         addPopupWithForm.close();
+         addPopupWithForm.setButtonText('Создать');
       });
     
 }
 
 /*редактирование данных профиля*/
 function editFormSubmitCallback(data) {
+   editPopupWithForm.setButtonText('Сохранение...');
    api.updateUserInfo(data)
       .then((res) => {
-         userInfo.setUserInfo(res);
-         editPopupWithForm.close();
+         userInfo.setUserInfo(res);         
       })
       .catch((err) => {
          console.log(err);
+      })
+      .finally(() => {
+         editPopupWithForm.close();
+         editPopupWithForm.setButtonText('Сохранить');
       });
 
 }
 
 /*обновление аватара*/
 function avatarFormSubmitCallback(data) {
+   avatarPopupWithForm.setButtonText('Сохранение...');
    api.updateAvatar(data)
       .then((res) => {
-         userInfo.setUserAvatar(res);
-         avatarPopupWithForm.close();
+         userInfo.setUserAvatar(res);         
       })
       .catch((err) => {
          console.log(err);
-      });
+      })
+      .finally(() => {
+         avatarPopupWithForm.close();
+         avatarPopupWithForm.setButtonText('Сохранить');
+      })
 }
 
 function createCard(data) {   
@@ -74,16 +85,19 @@ function createCard(data) {
       {
          handleDeleteCard: () => {
             confirmPopup.open();
-            confirmPopup.handlerSubmit(data._id,() => {
+            confirmPopup.handlerSubmit(data._id, () => {
+               confirmPopup.setButtonText('Удаление...');
                api.deleteCard(data._id)
                   .then(() => {
-                     card.deleteCard();
-                     confirmPopup.close();
+                     card.deleteCard();                     
                   })
                   .catch((err) => {
                      console.log(err)
                   })
-                  .finally(setTimeout(() => (confirmPopup.close()), 500))
+                  .finally(() => {                    
+                     confirmPopup.close();
+                     confirmPopup.setButtonText('Да');
+                  })                  
             })
          },
          handleLikeCard: () => {

@@ -6,7 +6,7 @@ export default class Section {
    }
 
    renderItems(items) {
-      this._renderedItems = items;
+      this._renderedItems = items.reverse();
       this._renderedItems.forEach((item) => {
          this._renderer(item);
       });

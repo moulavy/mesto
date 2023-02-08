@@ -17,6 +17,10 @@ export default class Popup{
       }   
    }
 
+   setButtonText(text) {
+      this._popup.querySelector('.popup__button').textContent = text;
+   }
+
    _handleOverlayClose(e) {
       if (e.target.classList.contains('popup_opened')) {
          this.close();
