@@ -18,6 +18,7 @@ const api = new Api({
       'Content-Type': 'application/json'
    }
 }); 
+
 /*получаем данные с сервера(данные профиля и массив карточек)*/
 Promise.all([api.getUserInfo(), api.getInitialCards()])
    .then(([resUser, resCards]) => {
@@ -43,8 +44,7 @@ function addFormSubmitCallback(data) {
       .finally(() => {
          addPopupWithForm.close();
          addPopupWithForm.setButtonText('Создать');
-      });
-    
+      });    
 }
 
 /*редактирование данных профиля*/

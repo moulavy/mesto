@@ -72,9 +72,4 @@ export class Card {
       }
    }
 
-   // _handleLike() {
-   //    this._itemElementLike.classList.toggle('elements__button-heart_active');
-      
-   // }
-
 }
