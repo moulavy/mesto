@@ -3,6 +3,7 @@
   grid-template-areas:
     "name edit"
     "description description";  
+    max-width:327px;
 }
 
 @media screen and (max-width: 768px) {
