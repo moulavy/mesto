@@ -2,7 +2,7 @@
   display: grid;
   grid-template-areas:
     "name edit"
-    "description description";  
+    "description description"; 
     max-width:327px;
 }
 
